@@ -1,0 +1,12 @@
+{
+ "drugs": [
+  "Meropenem",
+  "Ceftazidime",
+  "Ciprofloxacin",
+  "Gentamicin",
+  "Amikacin",
+  "Tigecycline"
+ ],
+ "abstain_delta": 0.15,
+ "species": "Klebsiella pneumoniae"
+}

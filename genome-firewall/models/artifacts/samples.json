@@ -1,0 +1,43 @@
+{
+ "573.66442": {
+  "YojI": 1,
+  "blaNDM": 1,
+  "msbA": 1,
+  "phenicol": 1
+ },
+ "573.14058": {
+  "aminoglycoside-other": 1,
+  "blaKPC": 1
+ },
+ "573.66230": {
+  "blaKPC": 1,
+  "sul": 1
+ },
+ "573.15670": {
+  "blaCTX-M": 1
+ },
+ "573.44077": {
+  "blaCTX-M": 1,
+  "murA": 1,
+  "parE": 1
+ },
+ "573.66288": {
+  "AcrEF-TolC": 1,
+  "Ddl": 1,
+  "FosA5": 1,
+  "GdpD": 1,
+  "OmpK36": 1,
+  "OprB": 1,
+  "aac(3)": 1,
+  "aac(6')": 1,
+  "acrA": 1,
+  "blaKPC": 1,
+  "blaTEM": 1,
+  "marR": 1,
+  "mcr": 1,
+  "parC": 1,
+  "phenicol": 1
+ },
+ "573.13296": {},
+ "573.14439": {}
+}

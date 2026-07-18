@@ -1,0 +1,1266 @@
+{
+ "16S": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "23S": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "AcrAB-TolC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "AcrAD-TolC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "AcrEF-TolC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "AcrZ": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "Alr": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "BcrC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "CRP": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "Ddl": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "EF-G": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "EF-Tu": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "EmrAB-TolC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "EmrD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "EmrKY-TolC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "EreA2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "Erm(B)": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ErmB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "FosA3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "FosA5": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "GdpD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "GlpT": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "H-NS": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "Iso-tRNA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MacA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MacB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MarA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MarB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MarR": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MdfA/Cmr": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MdtABC-TolC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MdtL": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MdtM": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "Mef(B)": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MexCD-OprJ": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MexPQ-OpmE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "Mrx": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "Msr(E)": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "MurA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "NimB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "OKP-B-8": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "OccD6/OprQ": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "OmpK35": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "OmpK36": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "OprB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "OxyR": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "PgsA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "PhoP": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "PmrC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "PmrE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "PmrF": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "QacE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "S10p": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "S12p": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "SugE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "TolC/OpmH": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "UhpT": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "VEB-1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "YojI": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "aac(3)": {
+  "class": "AMINOGLYCOSIDE",
+  "subclass": "GENTAMICIN"
+ },
+ "aac(6')": {
+  "class": "AMINOGLYCOSIDE",
+  "subclass": "AMIKACIN"
+ },
+ "aac(6')-Ib-cr": {
+  "class": "QUINOLONE",
+  "subclass": "FLUOROQUINOLONE"
+ },
+ "acrA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrA_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrA_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrA_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrB_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrB_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrB_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrB_4": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrF": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrR": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrR_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "acrR_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "alaS": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "alr": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "aminoglycoside-other": {
+  "class": "AMINOGLYCOSIDE",
+  "subclass": "GENTAMICIN"
+ },
+ "armA": {
+  "class": "AMINOGLYCOSIDE",
+  "subclass": "AMIKACIN"
+ },
+ "arnA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "arnB_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "arnC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "arnD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "arnE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "arnF": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "arnT": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "arr": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "arr-2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "arr-3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "arr-8": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bacA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "baeR": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "baeS": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "basR_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "basS": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bcr_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bepD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bepE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bepE_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bepE_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bepE_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bepF": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bla": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "blaAmpC": {
+  "class": "BETA-LACTAM",
+  "subclass": "CEPHALOSPORIN"
+ },
+ "blaCTX-M": {
+  "class": "BETA-LACTAM",
+  "subclass": "CEPHALOSPORIN"
+ },
+ "blaGES": {
+  "class": "BETA-LACTAM",
+  "subclass": "CARBAPENEM"
+ },
+ "blaIMP": {
+  "class": "BETA-LACTAM",
+  "subclass": "CARBAPENEM"
+ },
+ "blaKPC": {
+  "class": "BETA-LACTAM",
+  "subclass": "CARBAPENEM"
+ },
+ "blaNDM": {
+  "class": "BETA-LACTAM",
+  "subclass": "CARBAPENEM"
+ },
+ "blaOKP": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "blaOXA": {
+  "class": "BETA-LACTAM",
+  "subclass": "nan"
+ },
+ "blaOXA-48": {
+  "class": "BETA-LACTAM",
+  "subclass": "CARBAPENEM"
+ },
+ "blaSHV": {
+  "class": "BETA-LACTAM",
+  "subclass": "CEPHALOSPORIN"
+ },
+ "blaTEM": {
+  "class": "BETA-LACTAM",
+  "subclass": "CEPHALOSPORIN"
+ },
+ "blaVIM": {
+  "class": "BETA-LACTAM",
+  "subclass": "CARBAPENEM"
+ },
+ "bla_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bla_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ble": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "bm3R1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ccrB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "citA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "citA_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "citA_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "cpxA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "cpxR": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "crp": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "csrA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "cysB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "dadX": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ddl": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ddlA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ddlB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "dfr": {
+  "class": "TRIMETHOPRIM",
+  "subclass": "nan"
+ },
+ "dxr": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "emrA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "emrA_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "emrB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "emrB_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "emrB_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "emrB_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "emrD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "emrE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "emrE_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "emrR": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "eptA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "eptB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ere(A)": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "erm": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "erm(42)": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "erm(B)": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "fabF": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "fabF_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "fabF_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "fabI": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "fabV": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "folA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "folP": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "folP_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "folP_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "fosA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "fosA_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ftsI": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ftsI_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ftsI_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ftsI_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ftsI_4": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "fusA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "fusA_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "fyuA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "gidB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "glpT_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "glpT_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "gyrA": {
+  "class": "QUINOLONE",
+  "subclass": "FLUOROQUINOLONE"
+ },
+ "hns": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "hns_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "hns_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ileS": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "kasA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "kdeA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "kdpE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "kpnE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "kpnF": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ksgA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "leuO": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "leuO_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "leuO_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "leuO_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "lptD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "macA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "macA_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "macB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "marA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "marA_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "marA_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "marA_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "marR": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "marR_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "marR_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mcr": {
+  "class": "COLISTIN",
+  "subclass": "nan"
+ },
+ "mdfA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtC_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtC_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtG": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtH": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtI": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtJ": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtK": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtK_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtL": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtM": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtM_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtP": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtP_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtP_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mdtQ": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mefB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mfd": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mgrB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mph(A)": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mph(E)": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mphA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mprA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "mrx": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "msbA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "msbA_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "msbA_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "msr(E)": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "msrE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "murA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "nfsA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "nfsA_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "nfsA_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "omp36": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ompA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ompC_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ompF": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ompK36": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ompK37": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ompN_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ompN_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "oprB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "oqxAB": {
+  "class": "QUINOLONE",
+  "subclass": "FLUOROQUINOLONE"
+ },
+ "oxyR": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "oxyR_4": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "oxyR_5": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "parC": {
+  "class": "QUINOLONE",
+  "subclass": "FLUOROQUINOLONE"
+ },
+ "parE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "parY": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "patA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "pgsA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "phenicol": {
+  "class": "PHENICOL",
+  "subclass": "nan"
+ },
+ "phoP_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "pmrD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "qacE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "qacH": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "qnr": {
+  "class": "QUINOLONE",
+  "subclass": "FLUOROQUINOLONE"
+ },
+ "ramA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ramR": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rho": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rmt": {
+  "class": "AMINOGLYCOSIDE",
+  "subclass": "AMIKACIN"
+ },
+ "robA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rob_4": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rosA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rplF": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rpoB": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rpoC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rppH": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rpsJ": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rpsL": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rseD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "rsmG": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "sat-1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "sat2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "soxR": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "soxS": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "soxS_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "soxS_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "soxS_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "soxS_4": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "soxS_5": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "sugE": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "sugE_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "sul": {
+  "class": "SULFONAMIDE",
+  "subclass": "nan"
+ },
+ "tet": {
+  "class": "TETRACYCLINE",
+  "subclass": "nan"
+ },
+ "tolC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "tuf": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "tuf1_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "tuf1_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "tufA": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ugpQ": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ugpQ_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ugpQ_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "uhpT": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "uhpT_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "uppP": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "vagC_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "vgaC": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ybhT": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ybjG": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ybjG_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "yceL": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ygjG": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "yibH_1": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "yibH_2": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "yibH_3": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "yibH_5": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "yibH_6": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "ymfD": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "yojI": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "yusO": {
+  "class": "nan",
+  "subclass": "nan"
+ },
+ "yycF": {
+  "class": "nan",
+  "subclass": "nan"
+ }
+}
