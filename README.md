@@ -37,6 +37,20 @@ streamlit run app/streamlit_app.py                 # open http://localhost:8501
 ```
 The trained models ship in `models/artifacts/`, so the app runs out of the box.
 
+By default the UI runs the clearly labeled collaborator Klebsiella demo. To connect the
+same frontend to a trained leakage-safe E. coli bundle:
+
+```bash
+export GF_MODEL_BUNDLE=/absolute/path/to/ecoli-bundle
+export GF_AMRFINDER=/absolute/path/to/amrfinder
+streamlit run app/streamlit_app.py
+```
+
+The adapter at `app/backend_adapter.py` switches coverage, drug names, inference, evidence,
+and evaluation artifacts without changing the visual frontend. It defaults to conservative
+susceptibility calls; set `GF_SUSCEPTIBLE_POLICY=validated_low_risk` only for a threshold
+policy validated and frozen with the bundle.
+
 ## Rebuild from data (optional)
 Download three tables for *Klebsiella pneumoniae* from [bv-brc.org](https://www.bv-brc.org)
 (AMR Phenotypes, Specialty Genes, Genomes) into `genome-firewall/data/raw/`, then:

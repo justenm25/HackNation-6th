@@ -1,6 +1,7 @@
 streamlit>=1.36
 pandas>=2.0
-scikit-learn>=1.3
+# Shipped collaborator artifacts were serialized with this exact version.
+scikit-learn==1.7.2
 matplotlib>=3.7
 numpy>=1.24
 scipy>=1.10

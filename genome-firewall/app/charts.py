@@ -23,15 +23,17 @@ def _clean(ax):
     return ax
 
 
-def reliability_curve():
+def reliability_curve(points=None):
     """Predicted probability vs observed frequency. Diagonal = perfect."""
-    conf = [0.55, 0.65, 0.75, 0.85, 0.95]
-    obs = [0.53, 0.64, 0.74, 0.86, 0.93]
+    points = points or []
+    conf = [p.get("confidence", p.get("mean_predicted")) for p in points]
+    obs = [p.get("accuracy", p.get("observed_resistant_fraction")) for p in points]
     fig, ax = plt.subplots(figsize=(4.5, 4.0))
     _clean(ax)
     ax.grid(color=LINE, linewidth=0.7)
     ax.plot([0.5, 1], [0.5, 1], "--", color=MUTED, lw=1.4, label="Perfect calibration")
-    ax.plot(conf, obs, "-o", color=INK, lw=1.8, markersize=6, label="Model")
+    if conf:
+        ax.plot(conf, obs, "-o", color=INK, lw=1.8, markersize=6, label="Model")
     ax.set_xlim(0.5, 1); ax.set_ylim(0.5, 1)
     ax.set_xlabel("Predicted confidence"); ax.set_ylabel("Observed accuracy")
     ax.legend(loc="upper left", frameon=False, fontsize=8)

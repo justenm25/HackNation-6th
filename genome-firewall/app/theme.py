@@ -6,7 +6,7 @@ three clinical calls (fail / work / no-call). Data is IBM Plex Mono with
 tabular figures; UI is IBM Plex Sans. No hero, no emoji, no gradients.
 """
 from __future__ import annotations
-from src.contract import Verdict, EvidenceCategory, SUPPORTED_SPECIES, SUPPORTED_DRUGS
+from src.contract import Verdict, EvidenceCategory
 
 # ---- the six tokens -------------------------------------------------------
 PAPER   = "#F7F8FA"
@@ -77,11 +77,11 @@ def wordmark() -> str:
     )
 
 
-def coverage_line() -> str:
-    drugs = ", ".join(d.lower() for d in SUPPORTED_DRUGS)
+def coverage_line(species: str, supported_drugs: list[str]) -> str:
+    drugs = ", ".join(d.lower() for d in supported_drugs)
     return (
         f'<div style="font-size:.82rem;color:#5A6b78;line-height:1.5;margin-bottom:6px;">'
-        f'<b style="color:#10212E;">Coverage.</b> {SUPPORTED_SPECIES} · {drugs}.<br>'
+        f'<b style="color:#10212E;">Coverage.</b> {species} · {drugs}.<br>'
         f'<b style="color:#10212E;">Out of scope.</b> sample collection, species identification, '
         f'genome reconstruction, and any other species or antibiotic.</div>'
     )
@@ -173,11 +173,11 @@ def report_table(predictions) -> str:
     )
 
 
-def empty_state() -> str:
+def empty_state(species: str) -> str:
     return (
         '<div style="border:1px dashed #C4CAD2;border-radius:8px;padding:34px;text-align:center;'
         'background:#fff;color:#5A6b78;">'
         f'<div style="font-weight:600;color:#10212E;margin-bottom:4px;">No genome loaded</div>'
-        f'Select a bundled {SUPPORTED_SPECIES} sample, or upload a quality-checked FASTA, '
+        f'Select a bundled {species} sample, or upload a quality-checked FASTA, '
         f'then run the analysis to see the predicted antibiotic response.</div>'
     )

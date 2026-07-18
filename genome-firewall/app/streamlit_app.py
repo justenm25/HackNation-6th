@@ -14,8 +14,11 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 import streamlit as st
-from src.pipeline import predict_genome, list_samples, get_model_metrics
-from src.contract import Verdict, SUPPORTED_SPECIES, SUPPORTED_DRUGS, DEFENSIVE_NOTE
+from app.backend_adapter import (
+    BACKEND_MODE, SUPPORTED_DRUGS, SUPPORTED_SPECIES, get_model_metrics,
+    get_reliability, list_samples, predict_genome,
+)
+from src.contract import Verdict, DEFENSIVE_NOTE
 from app import theme as T
 from app import charts
 from app.report import build_html_report
@@ -34,7 +37,10 @@ def notice(text: str) -> None:
 # ---- persistent trust surface --------------------------------------------
 st.markdown(T.safety_banner(), unsafe_allow_html=True)
 st.markdown(T.wordmark(), unsafe_allow_html=True)
-st.markdown(T.coverage_line(), unsafe_allow_html=True)
+st.markdown(T.coverage_line(SUPPORTED_SPECIES, SUPPORTED_DRUGS), unsafe_allow_html=True)
+if BACKEND_MODE == "collaborator_demo":
+    notice("<b>Demo mode.</b> Showing the collaborator's shipped Klebsiella model. "
+           "Set <span class='gf-mono'>GF_MODEL_BUNDLE</span> to use the E. coli backend.")
 st.markdown('<hr style="border:none;border-top:1px solid #D8DEE6;margin:.4rem 0 1rem;">',
             unsafe_allow_html=True)
 
@@ -44,10 +50,12 @@ rail, main = st.columns([1, 3], gap="large")
 with rail:
     st.markdown("**Input**")
     st.selectbox("Organism", [SUPPORTED_SPECIES], help="Coverage is limited to one species.")
-    mode = st.radio("Source", ["Sample genome", "Upload FASTA"], label_visibility="collapsed")
+    samples = list_samples()
+    source_modes = ["Sample genome", "Upload FASTA"] if samples else ["Upload FASTA"]
+    mode = st.radio("Source", source_modes, label_visibility="collapsed")
     sample_name, uploaded, species = None, None, SUPPORTED_SPECIES
     if mode == "Sample genome":
-        sample_name = st.selectbox("Sample genome (held-out)", list_samples())
+        sample_name = st.selectbox("Sample genome (held-out)", samples)
     else:
         uploaded = st.file_uploader("Quality-checked assembly (FASTA)",
                                     type=["fna", "fasta", "fa", "txt"])
@@ -62,7 +70,7 @@ with rail:
 with main:
     result = st.session_state.get("result")
     if not result:
-        st.markdown(T.empty_state(), unsafe_allow_html=True)
+        st.markdown(T.empty_state(SUPPORTED_SPECIES), unsafe_allow_html=True)
     else:
         st.markdown(
             f'<div style="font-size:1.05rem;font-weight:600;">Predicted response — '
@@ -93,7 +101,8 @@ with main:
             with st.expander(f"{p.drug} — {T.CALL_LABEL[p.verdict]}"):
                 st.markdown(f"<span style='color:#5A6b78;font-size:.88rem;'>{p.reasoning}</span>",
                             unsafe_allow_html=True)
-                gate = "present" if p.target_present else "absent (intrinsic resistance)"
+                gate = ("not assessed" if p.target == "not assessed" else
+                        ("present" if p.target_present else "absent (intrinsic resistance)"))
                 st.markdown(f"<span style='font-size:.82rem;color:#5A6b78;'>Target gate: "
                             f"<span class='gf-mono'>{gate}</span></span>", unsafe_allow_html=True)
                 if p.evidence_category.value == "known_gene" and p.supporting_genes:
@@ -126,42 +135,42 @@ with main:
             st.markdown(chips, unsafe_allow_html=True)
 
         # ---- performance & honesty ----
-        st.markdown("##### Performance & honesty (held-out, grouped by MLST)")
+        st.markdown("##### Performance & honesty (held-out genetic groups)")
         m = get_model_metrics()
-        brier = sum(x.brier for x in m) / len(m)
-        ncall = sum(x.no_call_rate for x in m) / len(m)
-        acc = sum(x.accuracy_on_calls for x in m) / len(m)
-        st.markdown(
-            '<div class="gf-mono" style="display:flex;gap:26px;font-size:.85rem;margin-bottom:8px;">'
+        if not m:
+            notice("Evaluation metrics are not present in this model bundle yet.")
+        else:
+            brier = sum(x.brier for x in m) / len(m)
+            ncall = sum(x.no_call_rate for x in m) / len(m)
+            acc = sum(x.accuracy_on_calls for x in m) / len(m)
+        if m:
+            st.markdown(
+                '<div class="gf-mono" style="display:flex;gap:26px;font-size:.85rem;margin-bottom:8px;">'
             f'<span>Mean Brier <b>{brier:.2f}</b></span>'
             f'<span>Mean no-call rate <b>{ncall:.0%}</b></span>'
-            f'<span>Accuracy on calls <b>{acc:.2f}</b></span></div>', unsafe_allow_html=True)
-        c1, c2 = st.columns(2)
-        with c1:
-            st.markdown("<span style='font-size:.82rem;color:#5A6b78;'>Discrimination — resistant "
+                f'<span>Accuracy on calls <b>{acc:.2f}</b></span></div>', unsafe_allow_html=True)
+            c1, c2 = st.columns(2)
+            with c1:
+                st.markdown("<span style='font-size:.82rem;color:#5A6b78;'>Discrimination — resistant "
                         "vs susceptible separation (AUROC, 0.5 = random)</span>", unsafe_allow_html=True)
-            st.pyplot(charts.auroc_bars(m), use_container_width=True)
-        with c2:
-            st.markdown("<span style='font-size:.82rem;color:#5A6b78;'>Reliability — is the "
+                st.pyplot(charts.auroc_bars(m), use_container_width=True)
+            with c2:
+                st.markdown("<span style='font-size:.82rem;color:#5A6b78;'>Reliability — is the "
                         "confidence trustworthy?</span>", unsafe_allow_html=True)
-            st.pyplot(charts.reliability_curve(), use_container_width=True)
-        st.dataframe(
+                st.pyplot(charts.reliability_curve(get_reliability()), use_container_width=True)
+            st.dataframe(
             [{"Drug": x.drug, "AUROC": f"{x.auroc:.2f}", "PR-AUC": f"{x.pr_auc:.2f}",
               "Recall R": f"{x.recall_resistant:.2f}", "Recall S": f"{x.recall_susceptible:.2f}",
               "Grouped / random": f"{x.balanced_acc_grouped:.2f} / {x.balanced_acc_random:.2f}",
               "Brier": f"{x.brier:.2f}", "No-call %": f"{x.no_call_rate:.0%}"}
              for x in m],
-            use_container_width=True, hide_index=True)
+                use_container_width=True, hide_index=True)
         st.markdown(
             "<div style='font-size:.82rem;color:#5A6b78;line-height:1.5;'>"
-            "<b>Reading this.</b> AUROC is threshold-free discrimination. The model separates "
-            "resistant from susceptible best for acquired-gene drugs (ceftazidime, ciprofloxacin). "
-            "Grouped ≈ random accuracy is a good sign — it relies on horizontally-transferred "
-            "resistance genes, not memorised clonal lineages.<br>"
-            "<b>Documented limitation.</b> Weak drugs (amikacin, tigecycline; part of carbapenem / "
-            "fluoroquinolone) resist mainly via <i>mutations</i> (gyrA/parC, porin ompK loss) that "
-            "acquired-gene annotations do not capture — so the system withholds there rather than "
-            "guessing.</div>", unsafe_allow_html=True)
+            "<b>Reading this.</b> AUROC measures resistant-versus-susceptible ranking; Brier score "
+            "measures probability quality. Grouped evaluation keeps related genomes together, "
+            "reducing lineage leakage. Low-confidence or conflicting cases are deliberately withheld."
+            "</div>", unsafe_allow_html=True)
 
     st.markdown('<hr style="border:none;border-top:1px solid #D8DEE6;margin:1rem 0 .5rem;">',
                 unsafe_allow_html=True)
