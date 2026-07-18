@@ -1,0 +1,26 @@
+species:
+  id: escherichia_coli
+  display_name: Escherichia coli
+  amrfinder_organism: Escherichia
+drug_panel: []
+features:
+  schema_version: gf-amr-v1
+grouping:
+  prefer_supplied_groups: true
+  fallback_tool: mash
+  mash_kmer_size: 21
+  mash_sketch_size: 10000
+  distance_threshold: 0.001
+labels:
+  resistant_values: [R]
+  susceptible_values: [S]
+  intermediate_values: [I]
+  intermediate_policy: exclude
+calibration:
+  method: sigmoid
+  isotonic_min_samples: 500
+calling:
+  resistant_threshold: 0.8
+  susceptible_threshold: 0.1
+  marker_free_susceptible_policy: conservative
+

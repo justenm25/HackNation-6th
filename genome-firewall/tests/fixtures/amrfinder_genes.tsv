@@ -1,0 +1,5 @@
+Protein identifier	Contig id	Start	Stop	Strand	Gene symbol	Sequence name	Scope	Element type	Element subtype	Class	Subclass	Method	Target length	Reference sequence length	% Coverage of reference sequence	% Identity to reference sequence	Alignment length	Accession of closest sequence	Name of closest sequence
+NA	synthetic_contig_1	1200	2384	+	blaTEM-1	class A beta-lactamase TEM-1	core	AMR	AMR	BETA-LACTAM	BETA-LACTAM	EXACTX	286	286	100.00	100.00	286	FIXTURE_0001	class A beta-lactamase TEM-1
+NA	synthetic_contig_1	5000	6203	-	tetA	tetracycline efflux MFS transporter TetA	core	AMR	AMR	TETRACYCLINE	TETRACYCLINE	BLASTX	401	401	99.75	98.50	401	FIXTURE_0002	tetracycline efflux MFS transporter TetA
+NA	synthetic_contig_2	400	1180	+	sul1	sulfonamide-resistant dihydropteroate synthase Sul1	core	AMR	AMR	SULFONAMIDE	SULFONAMIDE	EXACTX	260	260	100.00	100.00	260	FIXTURE_0003	sulfonamide-resistant dihydropteroate synthase Sul1
+NA	synthetic_contig_2	2000	2600	+	-	hypothetical protein with no assigned symbol	core	AMR	AMR	NA	NA	PARTIALX	200	260	76.92	95.00	200	FIXTURE_0004	hypothetical protein

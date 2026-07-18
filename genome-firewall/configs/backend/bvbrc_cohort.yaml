@@ -1,0 +1,24 @@
+source: BV-BRC
+taxon_id: 562
+species: Escherichia coli
+evidence: Laboratory Method
+antibiotics:
+  - ciprofloxacin
+  - ceftriaxone
+  - gentamicin
+  - ampicillin
+cohort:
+  maximum_genomes: 3000
+  random_seed: 42
+quality:
+  accepted_genome_quality: [Good]
+  minimum_checkm_completeness: 95.0
+  maximum_checkm_contamination: 5.0
+  minimum_genome_length: 4000000
+  maximum_genome_length: 7000000
+  maximum_contigs: 500
+labels:
+  accepted: [Resistant, Susceptible]
+  intermediate_policy: exclude_per_drug
+  conflict_policy: exclude_per_drug
+
