@@ -35,7 +35,11 @@ or report-contract logic.
 
 ## C-007 — Train/evaluate Slurm stage
 
-- Status: READY
+- Status: DONE — `cluster/train_evaluate.sbatch`, chained onto assembly with
+  `--dependency=afterok` and submitted by `submit.sh`. CPU-only. `--dataset-only` preserves
+  the stop-after-assembly mode. New `GF_TRAIN_*`, `GF_BUNDLE_DIR`, and `GF_EVAL_OUTPUT`
+  variables are documented in `cluster.env.example`. No training, calibration, threshold,
+  grouping, or evaluation Python logic changed.
 - Extend the existing cluster workflow with a dependent CPU-only job that invokes the
   existing `genome_firewall.cli.train` and `genome_firewall.cli.evaluate` entrypoints after
   dataset assembly.
@@ -45,14 +49,17 @@ or report-contract logic.
 
 ## C-008 — Real-backend adapter tests
 
-- Status: READY
+- Status: DONE — `tests/backend/test_backend_adapter_real_mode.py`, 10 tests over a
+  synthetic frozen bundle. Suite 43 passed (was 33). AMRFinder is mocked; no adapter or
+  model logic changed.
 - Add isolated tests that create or mock a minimal frozen bundle, set `GF_MODEL_BUNDLE`,
   reload `app.backend_adapter`, and verify dynamic E. coli species/drugs plus report
   translation. Mock AMRFinder execution; do not change adapter or model logic.
 
 ## C-009 — Final handoff checklist
 
-- Status: BLOCKED on C-007.
+- Status: DONE — `HANDOFF_CHECKLIST.md` at the repository root, unblocked by C-007.
+  Limitations and the mandatory lab-confirmation statement lead the document.
 - Add a short checklist covering: cluster outputs, bundle retrieval, environment variables,
   real-mode Streamlit launch, test commands, demo smoke test, PR review, and merge.
 - Keep scientific limitations and the mandatory lab-confirmation statement prominent.

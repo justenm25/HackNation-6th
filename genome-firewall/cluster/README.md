@@ -1,10 +1,15 @@
 # Running Genome Firewall preprocessing on a Slurm cluster
 
-Preprocessing turns a BV-BRC cohort into the canonical training dataset in two stages: an
-AMRFinderPlus job array with one genome per task, then a single aggregation job that Mash
-groups the cohort, chooses a group-safe split, and assembles the sparse feature matrix.
-The second stage is submitted with a dependency on the first, so one `./submit.sh` queues
-the whole pipeline and you can log off.
+The cluster pipeline runs in three dependent stages:
+
+1. **AMRFinder array** — one genome per array task.
+2. **Assembly** — Mash groups the cohort, chooses a group-safe split, and builds the sparse
+   feature matrix.
+3. **Train and evaluate** — one calibrated logistic-regression model per drug, then metrics
+   on the hidden-test split.
+
+Each stage is submitted with a dependency on the one before it, so a single `./submit.sh`
+queues the whole pipeline and you can log off. Stop after stage 2 with `--dataset-only`.
 
 **This workload is CPU-only.** AMRFinderPlus (BLAST and HMMER), Mash sketching, and the
 logistic-regression models all run on CPUs. Do not request a GPU partition — you will wait
@@ -63,18 +68,25 @@ module name from `module avail` — the scripts deliberately do not guess module
 
 ```bash
 ./submit.sh --dry-run    # print the sbatch commands without submitting
-./submit.sh              # array, then assembly once every task succeeds
+./submit.sh              # the full chain: array, assembly, train and evaluate
 ```
 
 `submit.sh` derives the array size from the cohort, so the array always matches the data.
-It prints both job ids and the log directory. Useful variants:
+It prints every job id and the log directory. Useful variants:
 
 ```bash
+./submit.sh --dataset-only           # stop after dataset assembly, no training
 ./submit.sh --amrfinder              # array only
 ./submit.sh --assemble               # assembly only, when the array already finished
+./submit.sh --train                  # train and evaluate from an existing dataset
+./submit.sh --assemble --train       # stage flags combine and stay chained
 GF_AMR_ARRAY_SIZE=25 ./submit.sh     # pilot on the first 25 genomes
 GF_AMR_ARRAY_THROTTLE=10 ./submit.sh # cap concurrently running tasks
 ```
+
+Only the stages you submit have their inputs checked, so `--train` works on a cluster where
+the FASTAs have already been cleaned up. The training stage additionally requires
+`GF_TRAIN_CONFIG`, and writes to `GF_BUNDLE_DIR` (default `${GF_WORK_ROOT}/bundle`).
 
 Environment variables override `cluster.env`, so a pilot run needs no edit to the committed
 configuration. Do a pilot first: it surfaces a wrong organism, path, or database in minutes
@@ -86,10 +98,12 @@ for every task, so a large array can saturate a shared filesystem. Start near th
 
 ## 4. Dependency chaining
 
-The assembly job is submitted with `--dependency=afterok:<array-job-id>`. It starts only if
-**every** array task exits zero. If any task fails, the assembly job stays in the queue with
-reason `DependencyNeverSatisfied` and never runs on an incomplete cohort. That is the
-intended behavior: fix the failures, resubmit, and the assembly proceeds.
+Each stage is submitted with `--dependency=afterok` on the previous one: assembly waits on
+the array, training waits on assembly. A stage starts only if **every** task it depends on
+exits zero. If an array task fails, the assembly job stays queued with reason
+`DependencyNeverSatisfied` and never runs on an incomplete cohort — and training never runs
+on a dataset that was never built. That is the intended behavior: fix the failures,
+resubmit, and the chain proceeds.
 
 ```bash
 scancel <assemble-job-id>   # clear a job stuck on a never-satisfied dependency
@@ -107,6 +121,10 @@ Both stages are resumable, so the fix for a timeout or preemption is to resubmit
   assembly-stage failure does not resketch the cohort.
 - **Assembly** fails loudly and lists what is missing if any AMRFinder result is absent,
   rather than quietly building a partial dataset.
+- **Training** is deliberately not resumable: it refuses to write into a non-empty bundle
+  directory so a frozen bundle is never silently replaced. To retrain, point
+  `GF_BUNDLE_DIR` at a new path or remove the old directory. Training is minutes of CPU, so
+  there is nothing to salvage by resuming.
 
 To force a genome to be recomputed, delete its TSV from `${GF_WORK_ROOT}/amrfinder/` and
 resubmit.
@@ -120,6 +138,8 @@ logs/amrfinder-<array-job-id>_<task-id>.out    # "<index> <genome_id> completed|
 logs/amrfinder-<array-job-id>_<task-id>.err
 logs/assemble-<job-id>.out                     # group and dataset summary lines
 logs/assemble-<job-id>.err
+logs/train-<job-id>.out                        # bundle and metrics paths
+logs/train-<job-id>.err
 ```
 
 Monitoring and triage:
@@ -146,6 +166,18 @@ The assembly job writes the canonical dataset to `${GF_WORK_ROOT}/dataset/`:
 | `samples.csv` | sample id, split, genetic group, and phenotypes |
 | `unknown_features.json` | per-sample features absent from the schema |
 
+The training stage writes the frozen bundle to `GF_BUNDLE_DIR` (default
+`${GF_WORK_ROOT}/bundle`) and hidden-test metrics to `GF_EVAL_OUTPUT` (default
+`${GF_WORK_ROOT}/eval/hidden_test.json`):
+
+| File | Contents |
+| --- | --- |
+| `bundle_manifest.json` | drug panel, feature schema id, and training details |
+| `feature_schema.json` | the schema predictions are validated against |
+| `models/<drug>.joblib`, `calibrators/<drug>.joblib` | per-drug model and calibrator |
+| `thresholds.json` | per-drug resistant and susceptible decision thresholds |
+| `leakage_audit.json` | evidence that no genetic group spans two splits |
+
 Alongside it, `genetic_groups.csv` records the Mash grouping and
 `mash/qualifying_edges.csv` the pairs that fell within the distance threshold — keep both,
 they are the evidence that the held-out split is leakage-safe.
@@ -153,10 +185,12 @@ they are the evidence that the held-out split is leakage-safe.
 ```bash
 rsync -avP you@cluster:"${GF_WORK_ROOT}/dataset/" data/processed/ecoli/
 rsync -avP you@cluster:"${GF_WORK_ROOT}/genetic_groups.csv" data/processed/
+rsync -avP you@cluster:"${GF_WORK_ROOT}/bundle/" models/bundle/
+rsync -avP you@cluster:"${GF_WORK_ROOT}/eval/hidden_test.json" models/
 ```
 
-Model training runs from this dataset and is fast enough to do locally; nothing after
-assembly needs the cluster.
+The bundle is what the Streamlit app loads through `GF_MODEL_BUNDLE`. See the repository
+`HANDOFF_CHECKLIST.md` for the exact cluster-to-local handoff and demo steps.
 
 ## Troubleshooting
 
@@ -169,3 +203,6 @@ assembly needs the cluster.
 | Assembly stuck, reason `DependencyNeverSatisfied` | An array task failed. Fix, `scancel` the assembly, resubmit. |
 | `Index N outside 0..M` | Cohort changed after submission; resubmit so the array is resized. |
 | Unknown organism from AMRFinder | `GF_ORGANISM` must be one of `amrfinder --list_organisms`. |
+| `Bundle ... already exists and is not empty` | Set `GF_BUNDLE_DIR` to a new path or remove the old bundle. |
+| `Unknown phenotype label: 'Resistant'` | The config's `labels.resistant_values` do not match the cohort's phenotype strings. |
+| Training produces no models | The config's `drug_panel` is empty; populate it with the drugs to train. |
