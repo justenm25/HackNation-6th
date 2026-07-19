@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "sample_count": 3000,
+  "group_count": 1548,
+  "partition_counts": {
+    "calibration": 452,
+    "hidden_test": 448,
+    "train": 2100
+  }
+}

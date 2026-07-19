@@ -1,0 +1,266 @@
+{
+  "ciprofloxacin": {
+    "resistant_threshold": 0.7,
+    "susceptible_threshold": 0.2,
+    "selection": {
+      "resistant": 0.7,
+      "susceptible": 0.2,
+      "accuracy_on_called": 0.9877149877149877,
+      "coverage": 0.9783653846153846
+    },
+    "candidates": [
+      {
+        "resistant": 0.7,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.9921259842519685,
+        "coverage": 0.9158653846153846
+      },
+      {
+        "resistant": 0.7,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.9898477157360406,
+        "coverage": 0.9471153846153846
+      },
+      {
+        "resistant": 0.7,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.9877149877149877,
+        "coverage": 0.9783653846153846
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.9921052631578947,
+        "coverage": 0.9134615384615384
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.989821882951654,
+        "coverage": 0.9447115384615384
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.9876847290640394,
+        "coverage": 0.9759615384615384
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.9920424403183024,
+        "coverage": 0.90625
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.9897435897435898,
+        "coverage": 0.9375
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.9875930521091811,
+        "coverage": 0.96875
+      }
+    ]
+  },
+  "ceftriaxone": {
+    "resistant_threshold": 0.7,
+    "susceptible_threshold": 0.2,
+    "selection": {
+      "resistant": 0.7,
+      "susceptible": 0.2,
+      "accuracy_on_called": 0.951048951048951,
+      "coverage": 0.9533333333333334
+    },
+    "candidates": [
+      {
+        "resistant": 0.7,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.9824561403508771,
+        "coverage": 0.76
+      },
+      {
+        "resistant": 0.7,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.9846153846153847,
+        "coverage": 0.8666666666666667
+      },
+      {
+        "resistant": 0.7,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.951048951048951,
+        "coverage": 0.9533333333333334
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.9910714285714286,
+        "coverage": 0.7466666666666667
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.9921875,
+        "coverage": 0.8533333333333334
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.9574468085106383,
+        "coverage": 0.94
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.990990990990991,
+        "coverage": 0.74
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.9921259842519685,
+        "coverage": 0.8466666666666667
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.9571428571428572,
+        "coverage": 0.9333333333333333
+      }
+    ]
+  },
+  "gentamicin": {
+    "resistant_threshold": 0.7,
+    "susceptible_threshold": 0.2,
+    "selection": {
+      "resistant": 0.7,
+      "susceptible": 0.2,
+      "accuracy_on_called": 0.9794050343249427,
+      "coverage": 0.997716894977169
+    },
+    "candidates": [
+      {
+        "resistant": 0.7,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.9836829836829837,
+        "coverage": 0.9794520547945206
+      },
+      {
+        "resistant": 0.7,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.9814814814814815,
+        "coverage": 0.9863013698630136
+      },
+      {
+        "resistant": 0.7,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.9794050343249427,
+        "coverage": 0.997716894977169
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.985981308411215,
+        "coverage": 0.9771689497716894
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.9837587006960556,
+        "coverage": 0.9840182648401826
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.981651376146789,
+        "coverage": 0.9954337899543378
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.9858156028368794,
+        "coverage": 0.9657534246575342
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.9835680751173709,
+        "coverage": 0.9726027397260274
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.9814385150812065,
+        "coverage": 0.9840182648401826
+      }
+    ]
+  },
+  "ampicillin": {
+    "resistant_threshold": 0.7,
+    "susceptible_threshold": 0.2,
+    "selection": {
+      "resistant": 0.7,
+      "susceptible": 0.2,
+      "accuracy_on_called": 0.9644268774703557,
+      "coverage": 0.7931034482758621
+    },
+    "candidates": [
+      {
+        "resistant": 0.7,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.9718875502008032,
+        "coverage": 0.780564263322884
+      },
+      {
+        "resistant": 0.7,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.9721115537848606,
+        "coverage": 0.786833855799373
+      },
+      {
+        "resistant": 0.7,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.9644268774703557,
+        "coverage": 0.7931034482758621
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.9875,
+        "coverage": 0.7523510971786834
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.987603305785124,
+        "coverage": 0.7586206896551724
+      },
+      {
+        "resistant": 0.8,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.9795081967213115,
+        "coverage": 0.7648902821316614
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.05,
+        "accuracy_on_called": 0.986784140969163,
+        "coverage": 0.7115987460815048
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.1,
+        "accuracy_on_called": 0.9868995633187773,
+        "coverage": 0.7178683385579937
+      },
+      {
+        "resistant": 0.9,
+        "susceptible": 0.2,
+        "accuracy_on_called": 0.9783549783549783,
+        "coverage": 0.7241379310344828
+      }
+    ]
+  }
+}

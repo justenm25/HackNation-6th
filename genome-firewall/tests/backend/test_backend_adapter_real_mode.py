@@ -259,3 +259,25 @@ def test_metrics_are_read_from_the_bundle_when_present(tmp_path, real_mode):
     assert metrics[0].balanced_acc_grouped == pytest.approx(0.81)
     assert metrics[0].no_call_rate == pytest.approx(0.2)
     assert adapter.get_reliability() == [{"confidence": 0.9, "accuracy": 0.88}]
+
+
+def test_detailed_evaluation_artifact_drives_metrics_and_reliability(tmp_path, real_mode):
+    bundle = build_bundle(tmp_path / "bundle")
+    (bundle / "metrics").mkdir()
+    curve = [{"mean_predicted": 0.1, "observed_resistant_fraction": 0.05},
+             {"mean_predicted": 0.9, "observed_resistant_fraction": 0.95}]
+    (bundle / "metrics" / "summary.json").write_text(json.dumps({"ampicillin": {
+        "classification": {"balanced_accuracy": 0.81, "resistant_recall": 0.75,
+                           "susceptible_recall": 0.87, "auroc": 0.9, "pr_auc": 0.85},
+        "calibration": {"brier_score": 0.12, "reliability_curve": curve},
+        "abstention": {"no_call_rate": 0.2, "accuracy_on_called": 0.93},
+    }}), encoding="utf-8")
+
+    adapter = real_mode(bundle)
+    metrics = adapter.get_model_metrics()
+    reliability = adapter.get_reliability()
+
+    assert metrics[0].drug == "Ampicillin"
+    assert metrics[0].balanced_acc_grouped == pytest.approx(0.81)
+    assert reliability == [{"confidence": pytest.approx(0.9),
+                            "accuracy": pytest.approx(0.95)}]

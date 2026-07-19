@@ -1,0 +1,266 @@
+{
+  "bundle_schema_version": "genome-firewall-bundle-v1",
+  "created_at": "2026-07-19T01:49:18.264770+00:00",
+  "random_state": 42,
+  "feature_schema_id": "gf-amr-v1-819928b0365edbd2",
+  "drug_panel": [
+    {
+      "id": "ciprofloxacin",
+      "display_name": "Ciprofloxacin",
+      "enabled": true
+    },
+    {
+      "id": "ceftriaxone",
+      "display_name": "Ceftriaxone",
+      "enabled": true
+    },
+    {
+      "id": "gentamicin",
+      "display_name": "Gentamicin",
+      "enabled": true
+    },
+    {
+      "id": "ampicillin",
+      "display_name": "Ampicillin",
+      "enabled": true
+    }
+  ],
+  "label_policy": {
+    "resistant_values": [
+      "Resistant"
+    ],
+    "susceptible_values": [
+      "Susceptible"
+    ],
+    "intermediate_values": [
+      "Intermediate"
+    ],
+    "intermediate_policy": "exclude"
+  },
+  "training": {
+    "ciprofloxacin": {
+      "train_samples": 1973,
+      "calibration_samples": 416,
+      "tuning": {
+        "tuned": true,
+        "folds": 5,
+        "best": {
+          "C": 1.0,
+          "class_weight": "balanced",
+          "mean_balanced_accuracy": 0.9828103942892179
+        },
+        "candidates": [
+          {
+            "C": 0.01,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.9752854305637388
+          },
+          {
+            "C": 0.01,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.9733402547350014
+          },
+          {
+            "C": 0.1,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.9793992087883628
+          },
+          {
+            "C": 0.1,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.9796223304155941
+          },
+          {
+            "C": 1.0,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.9826988334756024
+          },
+          {
+            "C": 1.0,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.9828103942892179
+          },
+          {
+            "C": 10.0,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.9765500165391142
+          },
+          {
+            "C": 10.0,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.9756367745299818
+          }
+        ]
+      },
+      "calibration_method": "sigmoid"
+    },
+    "ceftriaxone": {
+      "train_samples": 623,
+      "calibration_samples": 150,
+      "tuning": {
+        "tuned": true,
+        "folds": 5,
+        "best": {
+          "C": 10.0,
+          "class_weight": null,
+          "mean_balanced_accuracy": 0.9461843216623496
+        },
+        "candidates": [
+          {
+            "C": 0.01,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.801193155188234
+          },
+          {
+            "C": 0.01,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.7962262753419586
+          },
+          {
+            "C": 0.1,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.8775011267093425
+          },
+          {
+            "C": 0.1,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.8813250246895873
+          },
+          {
+            "C": 1.0,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.9283692420051647
+          },
+          {
+            "C": 1.0,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.9336323998999015
+          },
+          {
+            "C": 10.0,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.9461843216623496
+          },
+          {
+            "C": 10.0,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.9431773286553564
+          }
+        ]
+      },
+      "calibration_method": "sigmoid"
+    },
+    "gentamicin": {
+      "train_samples": 2019,
+      "calibration_samples": 438,
+      "tuning": {
+        "tuned": true,
+        "folds": 5,
+        "best": {
+          "C": 1.0,
+          "class_weight": "balanced",
+          "mean_balanced_accuracy": 0.9574409265421961
+        },
+        "candidates": [
+          {
+            "C": 0.01,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.6341484305011165
+          },
+          {
+            "C": 0.01,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.8614745657364405
+          },
+          {
+            "C": 0.1,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.9206224422213711
+          },
+          {
+            "C": 0.1,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.9356531307364039
+          },
+          {
+            "C": 1.0,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.9404106482368524
+          },
+          {
+            "C": 1.0,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.9574409265421961
+          },
+          {
+            "C": 10.0,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.9502612776137994
+          },
+          {
+            "C": 10.0,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.9514022737258092
+          }
+        ]
+      },
+      "calibration_method": "sigmoid"
+    },
+    "ampicillin": {
+      "train_samples": 1403,
+      "calibration_samples": 319,
+      "tuning": {
+        "tuned": true,
+        "folds": 5,
+        "best": {
+          "C": 10.0,
+          "class_weight": "balanced",
+          "mean_balanced_accuracy": 0.927916164864764
+        },
+        "candidates": [
+          {
+            "C": 0.01,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.6137771717953605
+          },
+          {
+            "C": 0.01,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.8501029144130603
+          },
+          {
+            "C": 0.1,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.8584565981465582
+          },
+          {
+            "C": 0.1,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.8755667168959729
+          },
+          {
+            "C": 1.0,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.9028582898329203
+          },
+          {
+            "C": 1.0,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.9153886025971236
+          },
+          {
+            "C": 10.0,
+            "class_weight": null,
+            "mean_balanced_accuracy": 0.907129647275011
+          },
+          {
+            "C": 10.0,
+            "class_weight": "balanced",
+            "mean_balanced_accuracy": 0.927916164864764
+          }
+        ]
+      },
+      "calibration_method": "sigmoid"
+    }
+  }
+}

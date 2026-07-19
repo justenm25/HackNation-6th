@@ -1,0 +1,1847 @@
+{
+  "schema_version": "gf-amr-v1",
+  "schema_id": "gf-amr-v1-819928b0365edbd2",
+  "unknown_feature_policy": "record_and_ignore",
+  "columns": [
+    {
+      "index": 0,
+      "feature_id": "gene::aac3-IId"
+    },
+    {
+      "index": 1,
+      "feature_id": "gene::aac3-IIe"
+    },
+    {
+      "index": 2,
+      "feature_id": "gene::aac3-IIg"
+    },
+    {
+      "index": 3,
+      "feature_id": "gene::aac3-IVa"
+    },
+    {
+      "index": 4,
+      "feature_id": "gene::aac3-Ia"
+    },
+    {
+      "index": 5,
+      "feature_id": "gene::aac3-Ib"
+    },
+    {
+      "index": 6,
+      "feature_id": "gene::aac3-VIa"
+    },
+    {
+      "index": 7,
+      "feature_id": "gene::aac6-IIc"
+    },
+    {
+      "index": 8,
+      "feature_id": "gene::aac6-Ib"
+    },
+    {
+      "index": 9,
+      "feature_id": "gene::aac6-Ib-cr"
+    },
+    {
+      "index": 10,
+      "feature_id": "gene::aac6-Ib-cr5"
+    },
+    {
+      "index": 11,
+      "feature_id": "gene::aac6-Ib3"
+    },
+    {
+      "index": 12,
+      "feature_id": "gene::aac6-Ib4"
+    },
+    {
+      "index": 13,
+      "feature_id": "gene::aacA16"
+    },
+    {
+      "index": 14,
+      "feature_id": "gene::aadA1"
+    },
+    {
+      "index": 15,
+      "feature_id": "gene::aadA11"
+    },
+    {
+      "index": 16,
+      "feature_id": "gene::aadA13"
+    },
+    {
+      "index": 17,
+      "feature_id": "gene::aadA16"
+    },
+    {
+      "index": 18,
+      "feature_id": "gene::aadA2"
+    },
+    {
+      "index": 19,
+      "feature_id": "gene::aadA22"
+    },
+    {
+      "index": 20,
+      "feature_id": "gene::aadA25"
+    },
+    {
+      "index": 21,
+      "feature_id": "gene::aadA31"
+    },
+    {
+      "index": 22,
+      "feature_id": "gene::aadA5"
+    },
+    {
+      "index": 23,
+      "feature_id": "gene::aadA7"
+    },
+    {
+      "index": 24,
+      "feature_id": "gene::aadA8"
+    },
+    {
+      "index": 25,
+      "feature_id": "gene::acrR_A129VfsTer9"
+    },
+    {
+      "index": 26,
+      "feature_id": "gene::acrR_A191KfsTer21"
+    },
+    {
+      "index": 27,
+      "feature_id": "gene::acrR_D84SfsTer13"
+    },
+    {
+      "index": 28,
+      "feature_id": "gene::acrR_E111PfsTer17"
+    },
+    {
+      "index": 29,
+      "feature_id": "gene::acrR_E11AfsTer26"
+    },
+    {
+      "index": 30,
+      "feature_id": "gene::acrR_E190RfsTer20"
+    },
+    {
+      "index": 31,
+      "feature_id": "gene::acrR_E91KfsTer6"
+    },
+    {
+      "index": 32,
+      "feature_id": "gene::acrR_F52SfsTer3"
+    },
+    {
+      "index": 33,
+      "feature_id": "gene::acrR_H95SfsTer3"
+    },
+    {
+      "index": 34,
+      "feature_id": "gene::acrR_I112YfsTer19"
+    },
+    {
+      "index": 35,
+      "feature_id": "gene::acrR_K80NfsTer9"
+    },
+    {
+      "index": 36,
+      "feature_id": "gene::acrR_K80RfsTer14"
+    },
+    {
+      "index": 37,
+      "feature_id": "gene::acrR_L109YfsTer28"
+    },
+    {
+      "index": 38,
+      "feature_id": "gene::acrR_P182RfsTer62"
+    },
+    {
+      "index": 39,
+      "feature_id": "gene::acrR_R192HfsTer53"
+    },
+    {
+      "index": 40,
+      "feature_id": "gene::acrR_S30HfsTer59"
+    },
+    {
+      "index": 41,
+      "feature_id": "gene::acrR_S68TerfsTer0"
+    },
+    {
+      "index": 42,
+      "feature_id": "gene::acrR_T207RfsTer37"
+    },
+    {
+      "index": 43,
+      "feature_id": "gene::acrR_V125insTer26"
+    },
+    {
+      "index": 44,
+      "feature_id": "gene::acrR_V29GfsTer7"
+    },
+    {
+      "index": 45,
+      "feature_id": "gene::acrR_V29YfsTer44"
+    },
+    {
+      "index": 46,
+      "feature_id": "gene::acrR_V29YfsTer60"
+    },
+    {
+      "index": 47,
+      "feature_id": "gene::acrR_V43GfsTer11"
+    },
+    {
+      "index": 48,
+      "feature_id": "gene::ampC_C-11T"
+    },
+    {
+      "index": 49,
+      "feature_id": "gene::ampC_C-42T"
+    },
+    {
+      "index": 50,
+      "feature_id": "gene::ampC_Kaer-1"
+    },
+    {
+      "index": 51,
+      "feature_id": "gene::ampC_T-14TGT"
+    },
+    {
+      "index": 52,
+      "feature_id": "gene::ampC_T-32A"
+    },
+    {
+      "index": 53,
+      "feature_id": "gene::ant2-Ia"
+    },
+    {
+      "index": 54,
+      "feature_id": "gene::ant9-Ia"
+    },
+    {
+      "index": 55,
+      "feature_id": "gene::aph3-IIa"
+    },
+    {
+      "index": 56,
+      "feature_id": "gene::aph3-Ia"
+    },
+    {
+      "index": 57,
+      "feature_id": "gene::aph3-Ib"
+    },
+    {
+      "index": 58,
+      "feature_id": "gene::aph3-VI"
+    },
+    {
+      "index": 59,
+      "feature_id": "gene::aph4-Ia"
+    },
+    {
+      "index": 60,
+      "feature_id": "gene::aph6-Ic"
+    },
+    {
+      "index": 61,
+      "feature_id": "gene::aph6-Id"
+    },
+    {
+      "index": 62,
+      "feature_id": "gene::armA"
+    },
+    {
+      "index": 63,
+      "feature_id": "gene::arr"
+    },
+    {
+      "index": 64,
+      "feature_id": "gene::arr-2"
+    },
+    {
+      "index": 65,
+      "feature_id": "gene::arr-3"
+    },
+    {
+      "index": 66,
+      "feature_id": "gene::blaCARB-2"
+    },
+    {
+      "index": 67,
+      "feature_id": "gene::blaCMY"
+    },
+    {
+      "index": 68,
+      "feature_id": "gene::blaCMY-145"
+    },
+    {
+      "index": 69,
+      "feature_id": "gene::blaCMY-2"
+    },
+    {
+      "index": 70,
+      "feature_id": "gene::blaCMY-4"
+    },
+    {
+      "index": 71,
+      "feature_id": "gene::blaCMY-42"
+    },
+    {
+      "index": 72,
+      "feature_id": "gene::blaCMY-6"
+    },
+    {
+      "index": 73,
+      "feature_id": "gene::blaCTX-M"
+    },
+    {
+      "index": 74,
+      "feature_id": "gene::blaCTX-M-1"
+    },
+    {
+      "index": 75,
+      "feature_id": "gene::blaCTX-M-14"
+    },
+    {
+      "index": 76,
+      "feature_id": "gene::blaCTX-M-15"
+    },
+    {
+      "index": 77,
+      "feature_id": "gene::blaCTX-M-182"
+    },
+    {
+      "index": 78,
+      "feature_id": "gene::blaCTX-M-192"
+    },
+    {
+      "index": 79,
+      "feature_id": "gene::blaCTX-M-2"
+    },
+    {
+      "index": 80,
+      "feature_id": "gene::blaCTX-M-24"
+    },
+    {
+      "index": 81,
+      "feature_id": "gene::blaCTX-M-27"
+    },
+    {
+      "index": 82,
+      "feature_id": "gene::blaCTX-M-3"
+    },
+    {
+      "index": 83,
+      "feature_id": "gene::blaCTX-M-55"
+    },
+    {
+      "index": 84,
+      "feature_id": "gene::blaCTX-M-65"
+    },
+    {
+      "index": 85,
+      "feature_id": "gene::blaCTX-M-8"
+    },
+    {
+      "index": 86,
+      "feature_id": "gene::blaCTX-M-9"
+    },
+    {
+      "index": 87,
+      "feature_id": "gene::blaDHA"
+    },
+    {
+      "index": 88,
+      "feature_id": "gene::blaDHA-1"
+    },
+    {
+      "index": 89,
+      "feature_id": "gene::blaGES-5"
+    },
+    {
+      "index": 90,
+      "feature_id": "gene::blaIMP-1"
+    },
+    {
+      "index": 91,
+      "feature_id": "gene::blaKPC-2"
+    },
+    {
+      "index": 92,
+      "feature_id": "gene::blaKPC-3"
+    },
+    {
+      "index": 93,
+      "feature_id": "gene::blaKPC-4"
+    },
+    {
+      "index": 94,
+      "feature_id": "gene::blaLAP-2"
+    },
+    {
+      "index": 95,
+      "feature_id": "gene::blaNDM-1"
+    },
+    {
+      "index": 96,
+      "feature_id": "gene::blaNDM-4"
+    },
+    {
+      "index": 97,
+      "feature_id": "gene::blaNDM-5"
+    },
+    {
+      "index": 98,
+      "feature_id": "gene::blaNDM-7"
+    },
+    {
+      "index": 99,
+      "feature_id": "gene::blaNDM-9"
+    },
+    {
+      "index": 100,
+      "feature_id": "gene::blaOXA"
+    },
+    {
+      "index": 101,
+      "feature_id": "gene::blaOXA-1"
+    },
+    {
+      "index": 102,
+      "feature_id": "gene::blaOXA-10"
+    },
+    {
+      "index": 103,
+      "feature_id": "gene::blaOXA-162"
+    },
+    {
+      "index": 104,
+      "feature_id": "gene::blaOXA-181"
+    },
+    {
+      "index": 105,
+      "feature_id": "gene::blaOXA-2"
+    },
+    {
+      "index": 106,
+      "feature_id": "gene::blaOXA-244"
+    },
+    {
+      "index": 107,
+      "feature_id": "gene::blaOXA-48"
+    },
+    {
+      "index": 108,
+      "feature_id": "gene::blaOXA-9"
+    },
+    {
+      "index": 109,
+      "feature_id": "gene::blaSFO-1"
+    },
+    {
+      "index": 110,
+      "feature_id": "gene::blaSHV"
+    },
+    {
+      "index": 111,
+      "feature_id": "gene::blaSHV-1"
+    },
+    {
+      "index": 112,
+      "feature_id": "gene::blaSHV-11"
+    },
+    {
+      "index": 113,
+      "feature_id": "gene::blaSHV-12"
+    },
+    {
+      "index": 114,
+      "feature_id": "gene::blaSHV-2A"
+    },
+    {
+      "index": 115,
+      "feature_id": "gene::blaSHV-49"
+    },
+    {
+      "index": 116,
+      "feature_id": "gene::blaSHV-5"
+    },
+    {
+      "index": 117,
+      "feature_id": "gene::blaSHV-7"
+    },
+    {
+      "index": 118,
+      "feature_id": "gene::blaTEM"
+    },
+    {
+      "index": 119,
+      "feature_id": "gene::blaTEM-1"
+    },
+    {
+      "index": 120,
+      "feature_id": "gene::blaTEM-12"
+    },
+    {
+      "index": 121,
+      "feature_id": "gene::blaTEM-135"
+    },
+    {
+      "index": 122,
+      "feature_id": "gene::blaTEM-176"
+    },
+    {
+      "index": 123,
+      "feature_id": "gene::blaTEM-190"
+    },
+    {
+      "index": 124,
+      "feature_id": "gene::blaTEM-20"
+    },
+    {
+      "index": 125,
+      "feature_id": "gene::blaTEM-215"
+    },
+    {
+      "index": 126,
+      "feature_id": "gene::blaTEM-30"
+    },
+    {
+      "index": 127,
+      "feature_id": "gene::blaTEM-32"
+    },
+    {
+      "index": 128,
+      "feature_id": "gene::blaTEM-33"
+    },
+    {
+      "index": 129,
+      "feature_id": "gene::blaTEM-35"
+    },
+    {
+      "index": 130,
+      "feature_id": "gene::blaTEM-39"
+    },
+    {
+      "index": 131,
+      "feature_id": "gene::blaTEM-40"
+    },
+    {
+      "index": 132,
+      "feature_id": "gene::blaTEM-52"
+    },
+    {
+      "index": 133,
+      "feature_id": "gene::blaTEM-70"
+    },
+    {
+      "index": 134,
+      "feature_id": "gene::blaVEB-5"
+    },
+    {
+      "index": 135,
+      "feature_id": "gene::blaVIM-1"
+    },
+    {
+      "index": 136,
+      "feature_id": "gene::ble"
+    },
+    {
+      "index": 137,
+      "feature_id": "gene::bleO"
+    },
+    {
+      "index": 138,
+      "feature_id": "gene::catA1"
+    },
+    {
+      "index": 139,
+      "feature_id": "gene::catA2"
+    },
+    {
+      "index": 140,
+      "feature_id": "gene::catB"
+    },
+    {
+      "index": 141,
+      "feature_id": "gene::catB3"
+    },
+    {
+      "index": 142,
+      "feature_id": "gene::catB8"
+    },
+    {
+      "index": 143,
+      "feature_id": "gene::cirA_A631RfsTer12"
+    },
+    {
+      "index": 144,
+      "feature_id": "gene::cirA_D104TfsTer18"
+    },
+    {
+      "index": 145,
+      "feature_id": "gene::cirA_D121GfsTer13"
+    },
+    {
+      "index": 146,
+      "feature_id": "gene::cirA_D147TfsTer1"
+    },
+    {
+      "index": 147,
+      "feature_id": "gene::cirA_D236IfsTer8"
+    },
+    {
+      "index": 148,
+      "feature_id": "gene::cirA_D258RfsTer5"
+    },
+    {
+      "index": 149,
+      "feature_id": "gene::cirA_D46MfsTer21"
+    },
+    {
+      "index": 150,
+      "feature_id": "gene::cirA_E450AfsTer30"
+    },
+    {
+      "index": 151,
+      "feature_id": "gene::cirA_E57KfsTer10"
+    },
+    {
+      "index": 152,
+      "feature_id": "gene::cirA_F232IfsTer6"
+    },
+    {
+      "index": 153,
+      "feature_id": "gene::cirA_G166YfsTer15"
+    },
+    {
+      "index": 154,
+      "feature_id": "gene::cirA_G181VfsTer13"
+    },
+    {
+      "index": 155,
+      "feature_id": "gene::cirA_G352EfsTer26"
+    },
+    {
+      "index": 156,
+      "feature_id": "gene::cirA_G413AfsTer34"
+    },
+    {
+      "index": 157,
+      "feature_id": "gene::cirA_H393RfsTer7"
+    },
+    {
+      "index": 158,
+      "feature_id": "gene::cirA_I160SfsTer34"
+    },
+    {
+      "index": 159,
+      "feature_id": "gene::cirA_I229YfsTer1"
+    },
+    {
+      "index": 160,
+      "feature_id": "gene::cirA_I91GfsTer11"
+    },
+    {
+      "index": 161,
+      "feature_id": "gene::cirA_K212TerfsTer0"
+    },
+    {
+      "index": 162,
+      "feature_id": "gene::cirA_K293NfsTer17"
+    },
+    {
+      "index": 163,
+      "feature_id": "gene::cirA_L12CfsTer12"
+    },
+    {
+      "index": 164,
+      "feature_id": "gene::cirA_L343NfsTer5"
+    },
+    {
+      "index": 165,
+      "feature_id": "gene::cirA_M384YfsTer4"
+    },
+    {
+      "index": 166,
+      "feature_id": "gene::cirA_P304LfsTer6"
+    },
+    {
+      "index": 167,
+      "feature_id": "gene::cirA_P421TfsTer1"
+    },
+    {
+      "index": 168,
+      "feature_id": "gene::cirA_Q60SfsTer7"
+    },
+    {
+      "index": 169,
+      "feature_id": "gene::cirA_R132VfsTer20"
+    },
+    {
+      "index": 170,
+      "feature_id": "gene::cirA_R284AfsTer13"
+    },
+    {
+      "index": 171,
+      "feature_id": "gene::cirA_R479VfsTer3"
+    },
+    {
+      "index": 172,
+      "feature_id": "gene::cirA_S142CfsTer10"
+    },
+    {
+      "index": 173,
+      "feature_id": "gene::cirA_S38LfsTer29"
+    },
+    {
+      "index": 174,
+      "feature_id": "gene::cirA_S432RfsTer15"
+    },
+    {
+      "index": 175,
+      "feature_id": "gene::cirA_S90YfsTer15"
+    },
+    {
+      "index": 176,
+      "feature_id": "gene::cirA_T190PfsTer4"
+    },
+    {
+      "index": 177,
+      "feature_id": "gene::cirA_T221PfsTer71"
+    },
+    {
+      "index": 178,
+      "feature_id": "gene::cirA_V114SfsTer8"
+    },
+    {
+      "index": 179,
+      "feature_id": "gene::cirA_V239RfsTer47"
+    },
+    {
+      "index": 180,
+      "feature_id": "gene::cirA_V279PfsTer14"
+    },
+    {
+      "index": 181,
+      "feature_id": "gene::cirA_V471GfsTer1"
+    },
+    {
+      "index": 182,
+      "feature_id": "gene::cirA_V74CfsTer5"
+    },
+    {
+      "index": 183,
+      "feature_id": "gene::cmlA1"
+    },
+    {
+      "index": 184,
+      "feature_id": "gene::cmlA5"
+    },
+    {
+      "index": 185,
+      "feature_id": "gene::cmlA6"
+    },
+    {
+      "index": 186,
+      "feature_id": "gene::dfrA"
+    },
+    {
+      "index": 187,
+      "feature_id": "gene::dfrA1"
+    },
+    {
+      "index": 188,
+      "feature_id": "gene::dfrA10"
+    },
+    {
+      "index": 189,
+      "feature_id": "gene::dfrA12"
+    },
+    {
+      "index": 190,
+      "feature_id": "gene::dfrA14"
+    },
+    {
+      "index": 191,
+      "feature_id": "gene::dfrA15"
+    },
+    {
+      "index": 192,
+      "feature_id": "gene::dfrA16"
+    },
+    {
+      "index": 193,
+      "feature_id": "gene::dfrA17"
+    },
+    {
+      "index": 194,
+      "feature_id": "gene::dfrA19"
+    },
+    {
+      "index": 195,
+      "feature_id": "gene::dfrA25"
+    },
+    {
+      "index": 196,
+      "feature_id": "gene::dfrA27"
+    },
+    {
+      "index": 197,
+      "feature_id": "gene::dfrA29"
+    },
+    {
+      "index": 198,
+      "feature_id": "gene::dfrA36"
+    },
+    {
+      "index": 199,
+      "feature_id": "gene::dfrA4"
+    },
+    {
+      "index": 200,
+      "feature_id": "gene::dfrA5"
+    },
+    {
+      "index": 201,
+      "feature_id": "gene::dfrA7"
+    },
+    {
+      "index": 202,
+      "feature_id": "gene::dfrA8"
+    },
+    {
+      "index": 203,
+      "feature_id": "gene::ereA"
+    },
+    {
+      "index": 204,
+      "feature_id": "gene::ereB"
+    },
+    {
+      "index": 205,
+      "feature_id": "gene::erm42"
+    },
+    {
+      "index": 206,
+      "feature_id": "gene::ermB"
+    },
+    {
+      "index": 207,
+      "feature_id": "gene::estX"
+    },
+    {
+      "index": 208,
+      "feature_id": "gene::estX-3"
+    },
+    {
+      "index": 209,
+      "feature_id": "gene::estXsat2"
+    },
+    {
+      "index": 210,
+      "feature_id": "gene::floR"
+    },
+    {
+      "index": 211,
+      "feature_id": "gene::fosA"
+    },
+    {
+      "index": 212,
+      "feature_id": "gene::fosA3"
+    },
+    {
+      "index": 213,
+      "feature_id": "gene::fosA4"
+    },
+    {
+      "index": 214,
+      "feature_id": "gene::fosA5"
+    },
+    {
+      "index": 215,
+      "feature_id": "gene::fosA7.5"
+    },
+    {
+      "index": 216,
+      "feature_id": "gene::lnuF"
+    },
+    {
+      "index": 217,
+      "feature_id": "gene::lnuG"
+    },
+    {
+      "index": 218,
+      "feature_id": "gene::marR_L71PfsTer27"
+    },
+    {
+      "index": 219,
+      "feature_id": "gene::marR_N22RfsTer4"
+    },
+    {
+      "index": 220,
+      "feature_id": "gene::mcr-1"
+    },
+    {
+      "index": 221,
+      "feature_id": "gene::mcr-1.1"
+    },
+    {
+      "index": 222,
+      "feature_id": "gene::mcr-1.2"
+    },
+    {
+      "index": 223,
+      "feature_id": "gene::mcr-1.32"
+    },
+    {
+      "index": 224,
+      "feature_id": "gene::mcr-3.1"
+    },
+    {
+      "index": 225,
+      "feature_id": "gene::mcr-3.2"
+    },
+    {
+      "index": 226,
+      "feature_id": "gene::mcr-3.4"
+    },
+    {
+      "index": 227,
+      "feature_id": "gene::mcr-3.5"
+    },
+    {
+      "index": 228,
+      "feature_id": "gene::mcr-4.6"
+    },
+    {
+      "index": 229,
+      "feature_id": "gene::mcr-5.1"
+    },
+    {
+      "index": 230,
+      "feature_id": "gene::mefB"
+    },
+    {
+      "index": 231,
+      "feature_id": "gene::mphA"
+    },
+    {
+      "index": 232,
+      "feature_id": "gene::mphB"
+    },
+    {
+      "index": 233,
+      "feature_id": "gene::mphE"
+    },
+    {
+      "index": 234,
+      "feature_id": "gene::mrxA"
+    },
+    {
+      "index": 235,
+      "feature_id": "gene::msrE"
+    },
+    {
+      "index": 236,
+      "feature_id": "gene::nfsA_C80SfsTer31"
+    },
+    {
+      "index": 237,
+      "feature_id": "gene::nfsA_E137IfsTer4"
+    },
+    {
+      "index": 238,
+      "feature_id": "gene::nfsA_E75LfsTer8"
+    },
+    {
+      "index": 239,
+      "feature_id": "gene::nfsA_G125AfsTer14"
+    },
+    {
+      "index": 240,
+      "feature_id": "gene::nfsA_G65AfsTer6"
+    },
+    {
+      "index": 241,
+      "feature_id": "gene::nfsA_I228NfsTer49"
+    },
+    {
+      "index": 242,
+      "feature_id": "gene::nfsA_I49FfsTer12"
+    },
+    {
+      "index": 243,
+      "feature_id": "gene::nfsA_K144NfsTer112"
+    },
+    {
+      "index": 244,
+      "feature_id": "gene::nfsA_L132PfsTer3"
+    },
+    {
+      "index": 245,
+      "feature_id": "gene::nfsA_L43CfsTer18"
+    },
+    {
+      "index": 246,
+      "feature_id": "gene::nfsA_L43FfsTer3"
+    },
+    {
+      "index": 247,
+      "feature_id": "gene::nfsA_L43FfsTer4"
+    },
+    {
+      "index": 248,
+      "feature_id": "gene::nfsA_M110TerfsTer0"
+    },
+    {
+      "index": 249,
+      "feature_id": "gene::nfsA_N114MfsTer2"
+    },
+    {
+      "index": 250,
+      "feature_id": "gene::nfsA_N134IfsTer94"
+    },
+    {
+      "index": 251,
+      "feature_id": "gene::nfsA_Q113RfsTer3"
+    },
+    {
+      "index": 252,
+      "feature_id": "gene::nfsA_R203VfsTer53"
+    },
+    {
+      "index": 253,
+      "feature_id": "gene::nfsA_R27AfsTer1"
+    },
+    {
+      "index": 254,
+      "feature_id": "gene::nfsA_S40AfsTer3"
+    },
+    {
+      "index": 255,
+      "feature_id": "gene::nfsA_S47AfsTer16"
+    },
+    {
+      "index": 256,
+      "feature_id": "gene::nfsA_V127YfsTer12"
+    },
+    {
+      "index": 257,
+      "feature_id": "gene::nfsA_Y128PfsTer6"
+    },
+    {
+      "index": 258,
+      "feature_id": "gene::nfsB_A170PfsTer8"
+    },
+    {
+      "index": 259,
+      "feature_id": "gene::nfsB_A27PfsTer68"
+    },
+    {
+      "index": 260,
+      "feature_id": "gene::nfsB_F167LfsTer11"
+    },
+    {
+      "index": 261,
+      "feature_id": "gene::nfsB_K119IfsTer11"
+    },
+    {
+      "index": 262,
+      "feature_id": "gene::nfsB_T88NfsTer12"
+    },
+    {
+      "index": 263,
+      "feature_id": "gene::ompF_A233LfsTer7"
+    },
+    {
+      "index": 264,
+      "feature_id": "gene::ompF_A251EfsTer3"
+    },
+    {
+      "index": 265,
+      "feature_id": "gene::ompF_D34RfsTer1"
+    },
+    {
+      "index": 266,
+      "feature_id": "gene::ompF_D96LfsTer76"
+    },
+    {
+      "index": 267,
+      "feature_id": "gene::ompF_D96WfsTer1"
+    },
+    {
+      "index": 268,
+      "feature_id": "gene::ompF_F67LfsTer10"
+    },
+    {
+      "index": 269,
+      "feature_id": "gene::ompF_G41IfsTer7"
+    },
+    {
+      "index": 270,
+      "feature_id": "gene::ompF_K28TerfsTer0"
+    },
+    {
+      "index": 271,
+      "feature_id": "gene::ompF_L131AfsTer5"
+    },
+    {
+      "index": 272,
+      "feature_id": "gene::ompF_N252EfsTer3"
+    },
+    {
+      "index": 273,
+      "feature_id": "gene::ompF_P12SfsTer11"
+    },
+    {
+      "index": 274,
+      "feature_id": "gene::ompF_Q284RfsTer22"
+    },
+    {
+      "index": 275,
+      "feature_id": "gene::ompF_S199FfsTer18"
+    },
+    {
+      "index": 276,
+      "feature_id": "gene::ompF_S294RfsTer12"
+    },
+    {
+      "index": 277,
+      "feature_id": "gene::ompF_S46LfsTer3"
+    },
+    {
+      "index": 278,
+      "feature_id": "gene::ompF_T353SfsTer51"
+    },
+    {
+      "index": 279,
+      "feature_id": "gene::ompF_W83VfsTer92"
+    },
+    {
+      "index": 280,
+      "feature_id": "gene::ompF_Y128MfsTer45"
+    },
+    {
+      "index": 281,
+      "feature_id": "gene::ompF_Y253EfsTer3"
+    },
+    {
+      "index": 282,
+      "feature_id": "gene::ompF_Y332TerfsTer0"
+    },
+    {
+      "index": 283,
+      "feature_id": "gene::oqxA"
+    },
+    {
+      "index": 284,
+      "feature_id": "gene::oqxB"
+    },
+    {
+      "index": 285,
+      "feature_id": "gene::oqxB5"
+    },
+    {
+      "index": 286,
+      "feature_id": "gene::qacE"
+    },
+    {
+      "index": 287,
+      "feature_id": "gene::qacEdelta1"
+    },
+    {
+      "index": 288,
+      "feature_id": "gene::qacG2"
+    },
+    {
+      "index": 289,
+      "feature_id": "gene::qacL"
+    },
+    {
+      "index": 290,
+      "feature_id": "gene::qepA"
+    },
+    {
+      "index": 291,
+      "feature_id": "gene::qepA1"
+    },
+    {
+      "index": 292,
+      "feature_id": "gene::qepA4"
+    },
+    {
+      "index": 293,
+      "feature_id": "gene::qepA8"
+    },
+    {
+      "index": 294,
+      "feature_id": "gene::qepA9"
+    },
+    {
+      "index": 295,
+      "feature_id": "gene::qnrA1"
+    },
+    {
+      "index": 296,
+      "feature_id": "gene::qnrB1"
+    },
+    {
+      "index": 297,
+      "feature_id": "gene::qnrB19"
+    },
+    {
+      "index": 298,
+      "feature_id": "gene::qnrB4"
+    },
+    {
+      "index": 299,
+      "feature_id": "gene::qnrB6"
+    },
+    {
+      "index": 300,
+      "feature_id": "gene::qnrD1"
+    },
+    {
+      "index": 301,
+      "feature_id": "gene::qnrS"
+    },
+    {
+      "index": 302,
+      "feature_id": "gene::qnrS1"
+    },
+    {
+      "index": 303,
+      "feature_id": "gene::qnrS13"
+    },
+    {
+      "index": 304,
+      "feature_id": "gene::qnrS2"
+    },
+    {
+      "index": 305,
+      "feature_id": "gene::qnrS4"
+    },
+    {
+      "index": 306,
+      "feature_id": "gene::rmtB1"
+    },
+    {
+      "index": 307,
+      "feature_id": "gene::rmtC"
+    },
+    {
+      "index": 308,
+      "feature_id": "gene::rmtF1"
+    },
+    {
+      "index": 309,
+      "feature_id": "gene::sat2"
+    },
+    {
+      "index": 310,
+      "feature_id": "gene::sat4"
+    },
+    {
+      "index": 311,
+      "feature_id": "gene::sul1"
+    },
+    {
+      "index": 312,
+      "feature_id": "gene::sul2"
+    },
+    {
+      "index": 313,
+      "feature_id": "gene::sul3"
+    },
+    {
+      "index": 314,
+      "feature_id": "gene::tetA"
+    },
+    {
+      "index": 315,
+      "feature_id": "gene::tetB"
+    },
+    {
+      "index": 316,
+      "feature_id": "gene::tetC"
+    },
+    {
+      "index": 317,
+      "feature_id": "gene::tetD"
+    },
+    {
+      "index": 318,
+      "feature_id": "gene::tetM"
+    },
+    {
+      "index": 319,
+      "feature_id": "gene::tetX4"
+    },
+    {
+      "index": 320,
+      "feature_id": "gene::uhpT_E239RfsTer14"
+    },
+    {
+      "index": 321,
+      "feature_id": "gene::vanZ-A"
+    },
+    {
+      "index": 322,
+      "feature_id": "mutation::acrR::E36Ter"
+    },
+    {
+      "index": 323,
+      "feature_id": "mutation::acrR::E8Ter"
+    },
+    {
+      "index": 324,
+      "feature_id": "mutation::acrR::G28R"
+    },
+    {
+      "index": 325,
+      "feature_id": "mutation::acrR::Q128Ter"
+    },
+    {
+      "index": 326,
+      "feature_id": "mutation::acrR::Q26Ter"
+    },
+    {
+      "index": 327,
+      "feature_id": "mutation::acrR::R45C"
+    },
+    {
+      "index": 328,
+      "feature_id": "mutation::acrR::S33Ter"
+    },
+    {
+      "index": 329,
+      "feature_id": "mutation::acrR::T5N"
+    },
+    {
+      "index": 330,
+      "feature_id": "mutation::blaTEMp::C32T"
+    },
+    {
+      "index": 331,
+      "feature_id": "mutation::blaTEMp::G162T"
+    },
+    {
+      "index": 332,
+      "feature_id": "mutation::cirA::C19Ter"
+    },
+    {
+      "index": 333,
+      "feature_id": "mutation::cirA::E176Ter"
+    },
+    {
+      "index": 334,
+      "feature_id": "mutation::cirA::E225Ter"
+    },
+    {
+      "index": 335,
+      "feature_id": "mutation::cirA::E388Ter"
+    },
+    {
+      "index": 336,
+      "feature_id": "mutation::cirA::E534Ter"
+    },
+    {
+      "index": 337,
+      "feature_id": "mutation::cirA::G192Ter"
+    },
+    {
+      "index": 338,
+      "feature_id": "mutation::cirA::G231Ter"
+    },
+    {
+      "index": 339,
+      "feature_id": "mutation::cirA::L323Ter"
+    },
+    {
+      "index": 340,
+      "feature_id": "mutation::cirA::Q187Ter"
+    },
+    {
+      "index": 341,
+      "feature_id": "mutation::cirA::Q216Ter"
+    },
+    {
+      "index": 342,
+      "feature_id": "mutation::cirA::Q247Ter"
+    },
+    {
+      "index": 343,
+      "feature_id": "mutation::cirA::Q260Ter"
+    },
+    {
+      "index": 344,
+      "feature_id": "mutation::cirA::Q425Ter"
+    },
+    {
+      "index": 345,
+      "feature_id": "mutation::cirA::Q42Ter"
+    },
+    {
+      "index": 346,
+      "feature_id": "mutation::cirA::Q501Ter"
+    },
+    {
+      "index": 347,
+      "feature_id": "mutation::cirA::Q56Ter"
+    },
+    {
+      "index": 348,
+      "feature_id": "mutation::cirA::Q598Ter"
+    },
+    {
+      "index": 349,
+      "feature_id": "mutation::cirA::Q65Ter"
+    },
+    {
+      "index": 350,
+      "feature_id": "mutation::cirA::Q78Ter"
+    },
+    {
+      "index": 351,
+      "feature_id": "mutation::cirA::W124Ter"
+    },
+    {
+      "index": 352,
+      "feature_id": "mutation::cirA::W164Ter"
+    },
+    {
+      "index": 353,
+      "feature_id": "mutation::cirA::W21Ter"
+    },
+    {
+      "index": 354,
+      "feature_id": "mutation::cirA::W243Ter"
+    },
+    {
+      "index": 355,
+      "feature_id": "mutation::cirA::W338Ter"
+    },
+    {
+      "index": 356,
+      "feature_id": "mutation::cirA::W370Ter"
+    },
+    {
+      "index": 357,
+      "feature_id": "mutation::cirA::W394Ter"
+    },
+    {
+      "index": 358,
+      "feature_id": "mutation::cirA::W455Ter"
+    },
+    {
+      "index": 359,
+      "feature_id": "mutation::cirA::W621Ter"
+    },
+    {
+      "index": 360,
+      "feature_id": "mutation::cirA::Y144Ter"
+    },
+    {
+      "index": 361,
+      "feature_id": "mutation::cirA::Y362Ter"
+    },
+    {
+      "index": 362,
+      "feature_id": "mutation::cyaA::S352T"
+    },
+    {
+      "index": 363,
+      "feature_id": "mutation::fabI::G93S"
+    },
+    {
+      "index": 364,
+      "feature_id": "mutation::folP::P64S"
+    },
+    {
+      "index": 365,
+      "feature_id": "mutation::ftsI::G363S"
+    },
+    {
+      "index": 366,
+      "feature_id": "mutation::ftsI::I336IKYRI"
+    },
+    {
+      "index": 367,
+      "feature_id": "mutation::ftsI::N337NYRIN"
+    },
+    {
+      "index": 368,
+      "feature_id": "mutation::gyrA::D87G"
+    },
+    {
+      "index": 369,
+      "feature_id": "mutation::gyrA::D87H"
+    },
+    {
+      "index": 370,
+      "feature_id": "mutation::gyrA::D87N"
+    },
+    {
+      "index": 371,
+      "feature_id": "mutation::gyrA::D87Y"
+    },
+    {
+      "index": 372,
+      "feature_id": "mutation::gyrA::S83A"
+    },
+    {
+      "index": 373,
+      "feature_id": "mutation::gyrA::S83L"
+    },
+    {
+      "index": 374,
+      "feature_id": "mutation::marR::E122Ter"
+    },
+    {
+      "index": 375,
+      "feature_id": "mutation::marR::S3N"
+    },
+    {
+      "index": 376,
+      "feature_id": "mutation::nfsA::C90Ter"
+    },
+    {
+      "index": 377,
+      "feature_id": "mutation::nfsA::E120Ter"
+    },
+    {
+      "index": 378,
+      "feature_id": "mutation::nfsA::E137Ter"
+    },
+    {
+      "index": 379,
+      "feature_id": "mutation::nfsA::E178Ter"
+    },
+    {
+      "index": 380,
+      "feature_id": "mutation::nfsA::E24Ter"
+    },
+    {
+      "index": 381,
+      "feature_id": "mutation::nfsA::E59Ter"
+    },
+    {
+      "index": 382,
+      "feature_id": "mutation::nfsA::G126R"
+    },
+    {
+      "index": 383,
+      "feature_id": "mutation::nfsA::G131D"
+    },
+    {
+      "index": 384,
+      "feature_id": "mutation::nfsA::G154E"
+    },
+    {
+      "index": 385,
+      "feature_id": "mutation::nfsA::H11Y"
+    },
+    {
+      "index": 386,
+      "feature_id": "mutation::nfsA::K68Ter"
+    },
+    {
+      "index": 387,
+      "feature_id": "mutation::nfsA::L145Ter"
+    },
+    {
+      "index": 388,
+      "feature_id": "mutation::nfsA::L196LGTer"
+    },
+    {
+      "index": 389,
+      "feature_id": "mutation::nfsA::Q113Ter"
+    },
+    {
+      "index": 390,
+      "feature_id": "mutation::nfsA::Q191Ter"
+    },
+    {
+      "index": 391,
+      "feature_id": "mutation::nfsA::Q195Ter"
+    },
+    {
+      "index": 392,
+      "feature_id": "mutation::nfsA::Q235Ter"
+    },
+    {
+      "index": 393,
+      "feature_id": "mutation::nfsA::Q26Ter"
+    },
+    {
+      "index": 394,
+      "feature_id": "mutation::nfsA::Q44Ter"
+    },
+    {
+      "index": 395,
+      "feature_id": "mutation::nfsA::Q67Ter"
+    },
+    {
+      "index": 396,
+      "feature_id": "mutation::nfsA::Q94Ter"
+    },
+    {
+      "index": 397,
+      "feature_id": "mutation::nfsA::R15C"
+    },
+    {
+      "index": 398,
+      "feature_id": "mutation::nfsA::R203C"
+    },
+    {
+      "index": 399,
+      "feature_id": "mutation::nfsA::R218Ter"
+    },
+    {
+      "index": 400,
+      "feature_id": "mutation::nfsA::S121Ter"
+    },
+    {
+      "index": 401,
+      "feature_id": "mutation::nfsA::W159Ter"
+    },
+    {
+      "index": 402,
+      "feature_id": "mutation::nfsA::W212Ter"
+    },
+    {
+      "index": 403,
+      "feature_id": "mutation::nfsA::W77Ter"
+    },
+    {
+      "index": 404,
+      "feature_id": "mutation::nfsB::C85Ter"
+    },
+    {
+      "index": 405,
+      "feature_id": "mutation::nfsB::E137Ter"
+    },
+    {
+      "index": 406,
+      "feature_id": "mutation::nfsB::Q26Ter"
+    },
+    {
+      "index": 407,
+      "feature_id": "mutation::nfsB::Q29Ter"
+    },
+    {
+      "index": 408,
+      "feature_id": "mutation::nfsB::Q44Ter"
+    },
+    {
+      "index": 409,
+      "feature_id": "mutation::nfsB::W46Ter"
+    },
+    {
+      "index": 410,
+      "feature_id": "mutation::nfsB::W94Ter"
+    },
+    {
+      "index": 411,
+      "feature_id": "mutation::nfsB::Y183Ter"
+    },
+    {
+      "index": 412,
+      "feature_id": "mutation::ompC::Q104Ter"
+    },
+    {
+      "index": 413,
+      "feature_id": "mutation::ompC::Q171Ter"
+    },
+    {
+      "index": 414,
+      "feature_id": "mutation::ompC::Q82Ter"
+    },
+    {
+      "index": 415,
+      "feature_id": "mutation::ompC::R195L"
+    },
+    {
+      "index": 416,
+      "feature_id": "mutation::ompC::Y254Ter"
+    },
+    {
+      "index": 417,
+      "feature_id": "mutation::ompF::E84Ter"
+    },
+    {
+      "index": 418,
+      "feature_id": "mutation::ompF::Q277Ter"
+    },
+    {
+      "index": 419,
+      "feature_id": "mutation::ompF::Q82Ter"
+    },
+    {
+      "index": 420,
+      "feature_id": "mutation::ompF::Q88Ter"
+    },
+    {
+      "index": 421,
+      "feature_id": "mutation::ompF::Q98Ter"
+    },
+    {
+      "index": 422,
+      "feature_id": "mutation::ompF::W83Ter"
+    },
+    {
+      "index": 423,
+      "feature_id": "mutation::parC::A108T"
+    },
+    {
+      "index": 424,
+      "feature_id": "mutation::parC::A108V"
+    },
+    {
+      "index": 425,
+      "feature_id": "mutation::parC::A56T"
+    },
+    {
+      "index": 426,
+      "feature_id": "mutation::parC::E84A"
+    },
+    {
+      "index": 427,
+      "feature_id": "mutation::parC::E84G"
+    },
+    {
+      "index": 428,
+      "feature_id": "mutation::parC::E84K"
+    },
+    {
+      "index": 429,
+      "feature_id": "mutation::parC::E84V"
+    },
+    {
+      "index": 430,
+      "feature_id": "mutation::parC::G78C"
+    },
+    {
+      "index": 431,
+      "feature_id": "mutation::parC::G78D"
+    },
+    {
+      "index": 432,
+      "feature_id": "mutation::parC::S57T"
+    },
+    {
+      "index": 433,
+      "feature_id": "mutation::parC::S80I"
+    },
+    {
+      "index": 434,
+      "feature_id": "mutation::parC::S80R"
+    },
+    {
+      "index": 435,
+      "feature_id": "mutation::parE::D475E"
+    },
+    {
+      "index": 436,
+      "feature_id": "mutation::parE::D476N"
+    },
+    {
+      "index": 437,
+      "feature_id": "mutation::parE::E460D"
+    },
+    {
+      "index": 438,
+      "feature_id": "mutation::parE::E460K"
+    },
+    {
+      "index": 439,
+      "feature_id": "mutation::parE::I355T"
+    },
+    {
+      "index": 440,
+      "feature_id": "mutation::parE::I529L"
+    },
+    {
+      "index": 441,
+      "feature_id": "mutation::parE::L416F"
+    },
+    {
+      "index": 442,
+      "feature_id": "mutation::parE::S458A"
+    },
+    {
+      "index": 443,
+      "feature_id": "mutation::parE::S458L"
+    },
+    {
+      "index": 444,
+      "feature_id": "mutation::parE::S458T"
+    },
+    {
+      "index": 445,
+      "feature_id": "mutation::pmrB::L10P"
+    },
+    {
+      "index": 446,
+      "feature_id": "mutation::pmrB::P94Q"
+    },
+    {
+      "index": 447,
+      "feature_id": "mutation::pmrB::T92P"
+    },
+    {
+      "index": 448,
+      "feature_id": "mutation::pmrB::V161G"
+    },
+    {
+      "index": 449,
+      "feature_id": "mutation::ptsI::V25I"
+    },
+    {
+      "index": 450,
+      "feature_id": "mutation::rpoB::H526Y"
+    },
+    {
+      "index": 451,
+      "feature_id": "mutation::rpoB::Q148L"
+    },
+    {
+      "index": 452,
+      "feature_id": "mutation::rpoB::V146F"
+    },
+    {
+      "index": 453,
+      "feature_id": "mutation::rpsJ::V57L"
+    },
+    {
+      "index": 454,
+      "feature_id": "mutation::soxR::G121D"
+    },
+    {
+      "index": 455,
+      "feature_id": "mutation::soxR::R20H"
+    },
+    {
+      "index": 456,
+      "feature_id": "mutation::soxR::S128del"
+    },
+    {
+      "index": 457,
+      "feature_id": "mutation::soxS::A12S"
+    },
+    {
+      "index": 458,
+      "feature_id": "mutation::uhpT::E350Q"
+    },
+    {
+      "index": 459,
+      "feature_id": "mutation::uhpT::Q459Ter"
+    }
+  ]
+}

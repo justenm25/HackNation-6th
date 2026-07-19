@@ -116,15 +116,24 @@ def get_model_metrics() -> list[DrugMetrics]:
         return []
     payload = json.loads(path.read_text())
     rows = payload.get("drugs", payload)
-    return [DrugMetrics(
-        drug=name, balanced_acc_random=0.0,
-        balanced_acc_grouped=float(values["balanced_accuracy"]),
-        recall_resistant=float(values["resistant_recall"]),
-        recall_susceptible=float(values["susceptible_recall"]), f1=float(values.get("f1", 0)),
-        auroc=float(values["auroc"]), pr_auc=float(values["pr_auc"]),
-        brier=float(values["brier_score"]), no_call_rate=float(values["no_call_rate"]),
-        accuracy_on_calls=float(values["accuracy_on_called"] or 0),
-    ) for name, values in rows.items()]
+    metrics = []
+    display_names = {drug["id"]: drug.get("display_name", drug["id"])
+                     for drug in _manifest["drug_panel"]}
+    for name, values in rows.items():
+        classification = values.get("classification", values)
+        calibration = values.get("calibration", values)
+        abstention = values.get("abstention", values)
+        metrics.append(DrugMetrics(
+            drug=display_names.get(name, name), balanced_acc_random=0.0,
+            balanced_acc_grouped=float(classification["balanced_accuracy"]),
+            recall_resistant=float(classification["resistant_recall"]),
+            recall_susceptible=float(classification["susceptible_recall"]),
+            f1=float(classification.get("f1", 0)), auroc=float(classification["auroc"]),
+            pr_auc=float(classification["pr_auc"]), brier=float(calibration["brier_score"]),
+            no_call_rate=float(abstention["no_call_rate"]),
+            accuracy_on_calls=float(abstention["accuracy_on_called"] or 0),
+        ))
+    return metrics
 
 
 def get_reliability() -> list[dict]:
@@ -132,5 +141,29 @@ def get_reliability() -> list[dict]:
         path = Path(__file__).resolve().parents[1] / "models" / "artifacts" / "reliability.json"
         return json.loads(path.read_text()) if path.exists() else []
     path = Path(BUNDLE) / "metrics" / "reliability.json"
-    return json.loads(path.read_text()) if path.exists() else []
-
+    if path.exists():
+        return json.loads(path.read_text())
+    summary = Path(BUNDLE) / "metrics" / "summary.json"
+    if not summary.exists():
+        return []
+    payload = json.loads(summary.read_text())
+    curves = [values.get("calibration", {}).get("reliability_curve", [])
+              for values in payload.get("drugs", payload).values()]
+    curves = [curve for curve in curves if curve]
+    if not curves:
+        return []
+    # Convert resistant probabilities into call confidence/accuracy, then pool nearby
+    # points for the panel-level chart. Per-drug resistant-probability curves remain in
+    # summary.json for scientific inspection.
+    bins: dict[int, list[tuple[float, float]]] = {}
+    for curve in curves:
+        for point in curve:
+            probability = float(point["mean_predicted"])
+            observed = float(point["observed_resistant_fraction"])
+            confidence = max(probability, 1.0 - probability)
+            accuracy = observed if probability >= 0.5 else 1.0 - observed
+            bins.setdefault(min(9, int((confidence - 0.5) * 10)), []).append(
+                (confidence, accuracy))
+    return [{"confidence": sum(point[0] for point in bins[index]) / len(bins[index]),
+             "accuracy": sum(point[1] for point in bins[index]) / len(bins[index])}
+            for index in sorted(bins)]
