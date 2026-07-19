@@ -1,0 +1,11 @@
+# Streamlit Community Cloud deployment (demo mode — no AMRFinderPlus needed).
+# Entry point: genome-firewall/app/streamlit_app.py
+# scikit-learn is pinned to the exact version the shipped models were serialized with.
+streamlit>=1.36
+pandas>=2.0
+scikit-learn==1.7.2
+matplotlib>=3.7
+numpy>=1.24
+scipy>=1.10
+PyYAML>=6.0
+pyarrow>=14.0
