@@ -2,7 +2,19 @@ species:
   id: escherichia_coli
   display_name: Escherichia coli
   amrfinder_organism: Escherichia
-drug_panel: []
+drug_panel:
+  - id: ciprofloxacin
+    display_name: Ciprofloxacin
+    enabled: true
+  - id: ceftriaxone
+    display_name: Ceftriaxone
+    enabled: true
+  - id: gentamicin
+    display_name: Gentamicin
+    enabled: true
+  - id: ampicillin
+    display_name: Ampicillin
+    enabled: true
 features:
   schema_version: gf-amr-v1
 grouping:
@@ -12,9 +24,9 @@ grouping:
   mash_sketch_size: 10000
   distance_threshold: 0.001
 labels:
-  resistant_values: [R]
-  susceptible_values: [S]
-  intermediate_values: [I]
+  resistant_values: [Resistant]
+  susceptible_values: [Susceptible]
+  intermediate_values: [Intermediate]
   intermediate_policy: exclude
 calibration:
   method: sigmoid
@@ -23,4 +35,3 @@ calling:
   resistant_threshold: 0.8
   susceptible_threshold: 0.1
   marker_free_susceptible_policy: conservative
-
