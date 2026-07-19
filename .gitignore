@@ -18,3 +18,12 @@ venv/
 .claude/
 .DS_Store
 Thumbs.db
+
+# Generated reports and local scratch space
+output/
+tmp/
+
+# Local demo inputs
+*.fna
+*.fasta
+*.fa
