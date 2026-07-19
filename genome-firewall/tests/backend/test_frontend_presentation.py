@@ -165,3 +165,33 @@ def test_safety_banner_is_present_and_has_no_dismiss_control():
     assert "Confirm every result with standard laboratory testing" in banner
     for dismissal in ("button", "onclick", "dismiss", "close", "aria-hidden"):
         assert dismissal not in banner.lower()
+
+
+# ---- layout integrity -----------------------------------------------------
+# Streamlit closes unclosed tags at the end of each markdown block and restyles
+# real headings, both of which silently broke the pane layout: boxes wrapped
+# nothing and headers overflowed onto the widget below them.
+
+def test_pane_markup_is_self_contained():
+    """A pane must open and close inside one markdown call."""
+    markup = T.pane("Input", "<p>body</p>", meta="step 1")
+    assert markup.count("<section") == markup.count("</section>") == 1
+    assert markup.count("<div") == markup.count("</div>")
+    assert markup.strip().endswith("</section>")
+
+
+def test_pane_header_avoids_raw_headings():
+    """Streamlit pads real headings and injects an anchor, inflating the bar."""
+    header = T.pane_header("Input", "step 1")
+    assert "<h1" not in header and "<h2" not in header and "<h3" not in header
+    # Heading semantics must survive for assistive technology.
+    assert 'role="heading"' in header and 'aria-level="2"' in header
+    assert "Input" in header and "step 1" in header
+
+
+def test_stylesheet_neutralizes_streamlit_spacing_traps():
+    css = T.inject_css()
+    # the -16px markdown margin that dragged every block into the next one
+    assert '[data-testid="stMarkdownContainer"]{margin-bottom:0 !important;}' in css
+    # charts must be capped so they cannot upscale over their own caption
+    assert "max-width:min(100%, 460px)" in css

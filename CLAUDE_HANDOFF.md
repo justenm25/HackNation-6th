@@ -137,3 +137,66 @@ QUESTION for Codex: `requirements.txt` pins `streamlit>=1.36`, so I kept
 `use_container_width`, which 1.59 deprecates in favour of `width=`. Raising the floor
 to >=1.49 would let the UI drop the deprecation warnings — your call, since the
 cluster environment pins the version.
+
+## 2026-07-19 — Claude
+
+DONE: C-010 follow-up — layout spacing. Frontend only (`app/theme.py`,
+`app/streamlit_app.py`, `app/charts.py`, plus three guard tests in
+`tests/backend/test_frontend_presentation.py`). Suite 65 passed, up from 62.
+
+Reported symptoms were overlapping elements and oversized plots. Three causes, all
+in how our markup met Streamlit's DOM:
+
+1. Streamlit puts `margin-bottom:-16px` on every markdown container to absorb a
+   trailing `<p>` margin. Our components are divs, so each block was dragged 16px
+   into the next one — that is why the Organism label sat on top of the Input pane
+   header. Cancelled, with the trailing paragraph margin neutralised instead.
+2. `pane_open()`/`pane_close()` opened a `<section>` in one markdown call and closed
+   it in another. Streamlit closes unclosed tags per block, so those panes wrapped
+   nothing and the widgets rode over the empty box's bottom edge. Panes that hold
+   widgets now use `st.container(border=True)` with a `pane_header()`; pure-HTML
+   panes emit `pane()` in a single call. `pane_open`/`pane_close` are gone.
+3. Pane headers used `<h2>`, which Streamlit restyles (1rem of padding) and injects
+   an anchor link into — a 61px header inside a 47px slot. Headers are now a div
+   with `role="heading" aria-level="2"`, so the semantics survive without the CSS.
+
+Plots: recent Streamlit ignores `use_container_width=False` for `st.pyplot` and
+stretched a 440px chart to ~700px, which overran the caption above it. Figures are
+smaller and capped in CSS at 460px, so no upscaling regardless of that flag.
+
+Also fixed, in the code added since my last entry: the `except` branch of the
+analysis block assigned `detail = str(exc)`, shadowing the `detail` column from
+`st.columns(...)`. Any backend exception therefore raised `AttributeError: 'str'
+object has no attribute '__enter__'` at `with detail:` instead of showing the error
+notice. Renamed to `message`; the guard rail itself is unchanged.
+
+Verification: measured in a real browser via CDP — header-to-label clearance is now
++11.6px (was -4.4px) and a whole-page sibling overlap audit reports none, at both
+1600px and 780px widths. Empty, analyzed, and all six focus-drug states render with
+no exception under `streamlit.testing`; `python -m pytest -q` — 65 passed.
+
+## 2026-07-19 — Claude (chart polish)
+
+Follow-up on the reliability plot looking clipped. `app/charts.py` and the image
+rules in `app/theme.py`; suite still 65 passed.
+
+- The calibration plot drew only the left and bottom spines, so the perfect-
+  calibration diagonal ran corner to corner into open space and was shaved by the
+  axes edge. It now keeps all four spines and draws that reference line with
+  `clip_on=False`, so it reads as bounded rather than cut.
+- `set_aspect("equal")` puts the diagonal at a true 45°, which is the only reason a
+  calibration plot is worth reading.
+- The legend moved from upper left, where it sat on top of the reference line, to
+  lower right, where the area under the diagonal is empty.
+- The AUROC chart's dashed "random" line sat exactly on the left spine — the x axis
+  already starts at 0.5 — so it was invisible chart junk. Removed; the axis label
+  now carries "0.5 = random", and every bar visibly grows from random.
+- The two charts now share one figure size and are capped by HEIGHT as well as
+  width. Streamlit saves each figure with a tight bounding box, so the square
+  calibration plot cropped narrower than the bar chart and, pinned to the same
+  width, was magnified more and carried visibly larger type. Both now render at
+  300px tall with an identical 0.462 scale factor, so their type matches.
+
+Verification: measured in the browser (both images 300px tall, same scale); charts
+re-rendered standalone at 200 dpi and checked for clipped labels; `honesty_dumbbell`
+and the empty-reliability path still render; `pytest -q` — 65 passed.

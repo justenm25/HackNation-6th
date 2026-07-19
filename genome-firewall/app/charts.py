@@ -20,10 +20,21 @@ plt.rcParams.update({
 })
 
 
-def _clean(ax):
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
+# The two charts are read side by side, so they share a canvas size and a frame
+# treatment. Both are rendered at 2x by Streamlit and displayed at 460px.
+FIGSIZE = (4.3, 3.2)
+EDGE = "#CBD5E1"   # slate-300
+
+
+def _frame(ax, sides=("left", "bottom")):
+    """Keep the named spines; a chart whose data reaches the plot edge keeps all
+    four, so a line running into the corner reads as bounded rather than cut."""
+    for name, spine in ax.spines.items():
+        spine.set_visible(name in sides)
+        spine.set_color(EDGE)
+        spine.set_linewidth(0.8)
     ax.set_axisbelow(True)
+    ax.tick_params(length=3, width=0.8, color=EDGE)
     return ax
 
 
@@ -32,16 +43,28 @@ def reliability_curve(points=None):
     points = points or []
     conf = [p.get("confidence", p.get("mean_predicted")) for p in points]
     obs = [p.get("accuracy", p.get("observed_resistant_fraction")) for p in points]
-    fig, ax = plt.subplots(figsize=(4.2, 3.4))
-    _clean(ax)
+    fig, ax = plt.subplots(figsize=FIGSIZE)
+    # All four spines: the diagonal runs corner to corner, so an open top-right
+    # made it look clipped. Equal aspect keeps that reference line at a true 45°,
+    # which is the whole point of reading a calibration plot.
+    _frame(ax, sides=("left", "bottom", "top", "right"))
+    ax.set_aspect("equal", adjustable="box")
     ax.grid(color=LINE, linewidth=0.7)
-    ax.plot([0.5, 1], [0.5, 1], "--", color=MUTED, lw=1.4, label="Perfect calibration")
+    # clip_on=False so the corner-to-corner line is not shaved by the axes edge.
+    ax.plot([0.5, 1], [0.5, 1], "--", color=MUTED, lw=1.3, zorder=2,
+            clip_on=False, label="Perfect calibration")
     if conf:
-        ax.plot(conf, obs, "-o", color=INK, lw=1.8, markersize=6, label="Model")
+        ax.plot(conf, obs, "-o", color=INK, lw=1.8, markersize=5.5, zorder=3,
+                label="Model")
     ax.set_xlim(0.5, 1); ax.set_ylim(0.5, 1)
+    ax.set_xticks([0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    ax.set_yticks([0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
     ax.set_xlabel("Predicted confidence"); ax.set_ylabel("Observed accuracy")
-    ax.legend(loc="upper left", frameon=False, fontsize=8)
-    fig.tight_layout()
+    # Lower right: the area under the diagonal is empty, and the old upper-left
+    # legend sat on top of the reference line.
+    ax.legend(loc="lower right", frameon=False, fontsize=7.5,
+              handlelength=1.6, borderpad=0.2, labelspacing=0.35)
+    fig.tight_layout(pad=0.6)
     return fig
 
 
@@ -49,16 +72,21 @@ def auroc_bars(metrics):
     """Per-drug AUROC (threshold-free discrimination), sorted, with a 0.5 = random line."""
     ms = sorted(metrics, key=lambda m: m.auroc)
     drugs = [m.drug for m in ms]; vals = [m.auroc for m in ms]
-    fig, ax = plt.subplots(figsize=(5.2, 0.42 * len(drugs) + 0.9))
-    _clean(ax)
-    ax.axvline(0.5, color=MUTED, lw=1.2, ls="--")
-    ax.text(0.5, len(drugs) - 0.35, " random", color=MUTED, fontsize=8, va="center")
-    ax.barh(drugs, vals, color=INK, height=0.6)
+    fig, ax = plt.subplots(figsize=FIGSIZE)
+    _frame(ax)
+    ax.grid(axis="x", color=LINE, linewidth=0.7)
+    ax.barh(drugs, vals, color=INK, height=0.62, zorder=3)
+    # No "random" reference line: the axis starts at 0.5, so every bar already
+    # grows from random and a dashed line there would sit under the left spine.
+    # Headroom so the value label on the longest bar stays inside the frame.
+    ax.set_xlim(0.5, 1.04)
     for i, v in enumerate(vals):
-        ax.annotate(f"{v:.2f}", (v, i), textcoords="offset points", xytext=(5, 0),
-                    va="center", color=INK, fontsize=9, fontweight="bold")
-    ax.set_xlim(0.5, 1.0); ax.set_xlabel("AUROC (held-out, grouped split)")
-    fig.tight_layout()
+        ax.annotate(f"{v:.2f}", (v, i), textcoords="offset points", xytext=(4, 0),
+                    va="center", color=INK, fontsize=8, fontweight="bold")
+    ax.set_xticks([0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    ax.set_xlabel("AUROC — 0.5 = random (held-out, grouped split)")
+    ax.tick_params(axis="y", length=0)
+    fig.tight_layout(pad=0.6)
     return fig
 
 
@@ -68,8 +96,9 @@ def honesty_dumbbell(metrics):
     rnd = [m.balanced_acc_random for m in metrics]
     grp = [m.balanced_acc_grouped for m in metrics]
     y = range(len(drugs))
-    fig, ax = plt.subplots(figsize=(5.2, 0.48 * len(drugs) + 1.0))
-    _clean(ax)
+    fig, ax = plt.subplots(figsize=FIGSIZE)
+    _frame(ax)
+    ax.tick_params(axis="y", length=0)
     ax.grid(axis="x", color=LINE, linewidth=0.7)
     for i in y:
         ax.plot([grp[i], rnd[i]], [i, i], color=LINE, lw=2, zorder=1)

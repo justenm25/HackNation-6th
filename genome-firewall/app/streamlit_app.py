@@ -49,26 +49,26 @@ rail, center, detail = st.columns([1.05, 2.5, 1.45], gap="small")
 
 # ---- pane 1: input --------------------------------------------------------
 with rail:
-    html(T.pane_open("Input", "step 1"))
-    st.selectbox("Organism", [SUPPORTED_SPECIES],
-                 help="Coverage is limited to one species.")
-    samples = list_samples()
-    source_modes = ["Sample genome", "Upload FASTA"] if samples else ["Upload FASTA"]
-    mode = st.radio("Source", source_modes, horizontal=True)
-    sample_name, uploaded, species = None, None, SUPPORTED_SPECIES
-    if mode == "Sample genome":
-        sample_name = st.selectbox("Sample genome (held-out)", samples)
-    else:
-        uploaded = st.file_uploader("Quality-checked assembly (FASTA)",
-                                    type=["fna", "fasta", "fa", "txt"])
-        # A bundle covers exactly one species, so in bundle mode the field is fixed.
-        # The demo backend models the out-of-coverage path itself, so it stays editable.
-        species = st.text_input("Species", value=SUPPORTED_SPECIES,
-                                disabled=REAL_MODE,
-                                help="This model bundle covers one species."
-                                if REAL_MODE else None)
-    go = st.button("Analyze genome", type="primary", use_container_width=True)
-    html(T.pane_close())
+    with st.container(border=True):
+        html(T.pane_header("Input", "step 1"))
+        st.selectbox("Organism", [SUPPORTED_SPECIES],
+                     help="Coverage is limited to one species.")
+        samples = list_samples()
+        source_modes = ["Sample genome", "Upload FASTA"] if samples else ["Upload FASTA"]
+        mode = st.radio("Source", source_modes, horizontal=True)
+        sample_name, uploaded, species = None, None, SUPPORTED_SPECIES
+        if mode == "Sample genome":
+            sample_name = st.selectbox("Sample genome (held-out)", samples)
+        else:
+            uploaded = st.file_uploader("Quality-checked assembly (FASTA)",
+                                        type=["fna", "fasta", "fa", "txt"])
+            # A bundle covers exactly one species, so in bundle mode the field is fixed.
+            # The demo backend models the out-of-coverage path itself, so it stays editable.
+            species = st.text_input("Species", value=SUPPORTED_SPECIES,
+                                    disabled=REAL_MODE,
+                                    help="This model bundle covers one species."
+                                    if REAL_MODE else None)
+        go = st.button("Analyze genome", type="primary", use_container_width=True)
 
     if go:
         # Refuse before calling the backend rather than letting it substitute a
@@ -98,11 +98,12 @@ with rail:
             except Exception as exc:  # surfaced to the user, never a traceback
                 st.session_state.pop("result", None)
                 result = None
-                detail = str(exc).strip() or exc.__class__.__name__
+                # NB: not `detail` — that name holds the evidence column.
+                message = str(exc).strip() or exc.__class__.__name__
                 html(T.notice(
                     "<b>The genome could not be analyzed.</b> Nothing was predicted. "
                     f"Check that the file is a quality-checked assembly. <br>"
-                    f'<span style="color:{T.INK_45};">{detail[:300]}</span>', "critical"))
+                    f'<span style="color:{T.INK_45};">{message[:300]}</span>', "critical"))
 
     html('<div style="height:6px;"></div>')
     html(T.pane("Coverage", T.coverage_line(SUPPORTED_SPECIES, SUPPORTED_DRUGS)))
@@ -121,26 +122,27 @@ with center:
                     T.empty_state(SUPPORTED_SPECIES), meta="awaiting genome"))
     else:
         withheld = sum(1 for p in result.predictions if p.verdict == Verdict.NO_CALL)
-        html(T.pane_open(
-            "Predicted antibiotic response",
-            f"{len(result.predictions)} drugs · {withheld} withheld", pad=False))
-        html(T.isolate_strip(result))
-        html('<div style="border-top:1px solid #E2E8F0;"></div>')
-
         if not result.species_supported:
-            html('<div style="padding:0 12px;">' + T.notice(
+            banner = '<div style="padding:2px 12px 0;">' + T.notice(
                 "<b>Out of coverage.</b> This species is not supported, so every "
                 f"antibiotic is withheld. Supported: {SUPPORTED_SPECIES}.",
-                "critical") + "</div>")
+                "critical") + "</div>"
         elif result.is_ood:
-            html('<div style="padding:0 12px;">' + T.notice(
+            banner = '<div style="padding:2px 12px 0;">' + T.notice(
                 "<b>Novel lineage.</b> This genome is unlike the training set "
                 f"(novelty {result.novelty_score:.0%}); calls are withheld where they "
                 "cannot be trusted. Withholding is deliberate, not an error.",
-                "warn") + "</div>")
-
-        html(T.antibiogram(result.predictions))
-        html(T.pane_close())
+                "warn") + "</div>"
+        else:
+            banner = ""
+        # One markdown call: the pane must be a single block to wrap its own body.
+        html(T.pane(
+            "Predicted antibiotic response",
+            T.isolate_strip(result)
+            + '<div style="border-top:1px solid #E2E8F0;"></div>'
+            + banner
+            + T.antibiogram(result.predictions),
+            meta=f"{len(result.predictions)} drugs · {withheld} withheld", pad=False))
 
         row = st.columns([1, 1])
         with row[0]:
@@ -186,16 +188,17 @@ if result:
             html(T.metrics_grid(m))
             html('<div style="height:10px;"></div>')
             c1, c2 = st.columns(2)
+            # Rendered at natural size: stretching a matplotlib PNG to the column
+            # width blows the charts up past the grid and over their own captions.
             with c1:
-                html('<div style="font-size:.7rem;font-weight:600;color:#475569;">'
-                     "Discrimination — resistant vs susceptible separation "
-                     "(AUROC, 0.5 = random)</div>")
-                st.pyplot(charts.auroc_bars(m), use_container_width=True)
+                html('<span class="gf-chart-cap">Discrimination — resistant vs '
+                     "susceptible separation (AUROC, 0.5 = random)</span>")
+                st.pyplot(charts.auroc_bars(m), use_container_width=False)
             with c2:
-                html('<div style="font-size:.7rem;font-weight:600;color:#475569;">'
-                     "Reliability — is the confidence trustworthy?</div>")
+                html('<span class="gf-chart-cap">Reliability — is the confidence '
+                     "trustworthy?</span>")
                 st.pyplot(charts.reliability_curve(get_reliability()),
-                          use_container_width=True)
+                          use_container_width=False)
         html('<div style="font-size:.73rem;color:#475569;line-height:1.5;">'
              "<b>Reading this.</b> AUROC measures resistant-versus-susceptible ranking; "
              "the Brier score measures probability quality. Grouped evaluation keeps "

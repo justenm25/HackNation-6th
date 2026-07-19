@@ -69,11 +69,36 @@ h1,h2,h3,h4,h5,h6, button, input, select, textarea{
 }
 .stApp{background:var(--canvas); color:var(--ink);}
 
-/* density: reclaim the page for data */
-.block-container{padding:0.6rem 1.1rem 1.2rem; max-width:100%;}
-[data-testid="stVerticalBlock"]{gap:0.5rem;}
-[data-testid="stHorizontalBlock"]{gap:0.75rem;}
+/* Streamlit gives every markdown container a -16px bottom margin to absorb the
+   trailing <p> margin. Our components are divs, not paragraphs, so that margin
+   dragged each block 16px into the next one — headers landed on top of the labels
+   below them. Cancel it and neutralise the trailing paragraph margin instead. */
+[data-testid="stMarkdownContainer"]{margin-bottom:0 !important;}
+[data-testid="stMarkdownContainer"] > p:last-child{margin-bottom:0;}
+
+/* density: reclaim the page for data, but never at the cost of legibility */
+.block-container{padding:0.7rem 1.1rem 1.4rem; max-width:100%;}
+[data-testid="stVerticalBlock"]{gap:0.6rem;}
+[data-testid="stHorizontalBlock"]{gap:0.85rem;}
 hr{margin:0.5rem 0;}
+
+/* Panes that hold Streamlit widgets must be real containers: Streamlit closes any
+   unclosed tag at the end of its own markdown block, so an HTML-only wrapper would
+   render as an empty box and the widgets would collide with its bottom edge. Those
+   panes use st.container(border=True) and mark themselves with a pane_header().
+   Match on that header so plain columns — same testid, no border — stay untouched.
+   Streamlit has moved the border between the wrapper and the inner block across
+   versions, so normalise both. */
+[data-testid="stVerticalBlockBorderWrapper"]:has(
+    [data-testid="stMarkdownContainer"] > .gf-pane-hd){border:none; padding:0;}
+[data-testid="stVerticalBlock"]:has(
+    > [data-testid="stElementContainer"] [data-testid="stMarkdownContainer"] > .gf-pane-hd){
+  border:1px solid var(--line) !important; border-radius:6px; background:var(--surface);
+  padding:0 12px 12px !important; gap:0.6rem; overflow:hidden;}
+/* a standalone header (direct child of the markdown container) bleeds to the box
+   edges; the one nested inside a pure-HTML .gf-pane must not move */
+[data-testid="stMarkdownContainer"] > .gf-pane-hd{
+  margin:0 -12px 2px; border-radius:5px 5px 0 0;}
 
 /* numerals: vitals, labs, confidences, times all align */
 .gf-num, .gf-num *{font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1;}
@@ -86,10 +111,13 @@ hr{margin:0.5rem 0;}
 .gf-pane-hd{display:flex; align-items:center; justify-content:space-between;
   gap:8px; padding:6px 12px; border-bottom:1px solid var(--line);
   background:var(--fill); border-radius:6px 6px 0 0;}
-.gf-pane-hd h2{margin:0; font-size:.69rem; font-weight:700; letter-spacing:.06em;
-  text-transform:uppercase; color:var(--ink-60);}
-.gf-pane-hd .gf-hd-meta{font-size:.7rem; color:var(--ink-45);}
-.gf-pane-bd{padding:10px 12px;}
+/* neutralise Streamlit's heading styling wherever it can reach our markup */
+.gf-pane-hd .gf-pane-ttl, .gf-pane-hd h2{margin:0 !important; padding:0 !important;
+  font-size:.69rem !important; font-weight:700; letter-spacing:.06em; line-height:1.35;
+  text-transform:uppercase; color:var(--ink-60); scroll-margin:0;}
+.gf-pane-hd a, .gf-pane-hd [data-testid="stHeaderActionElements"]{display:none !important;}
+.gf-pane-hd .gf-hd-meta{font-size:.7rem; color:var(--ink-45); white-space:nowrap;}
+.gf-pane-bd{padding:11px 13px;}
 
 /* dense data grid */
 table.gf-grid{width:100%; border-collapse:collapse; font-size:.8rem;}
@@ -110,9 +138,26 @@ table.gf-grid td .gf-sub{font-size:.68rem; color:var(--ink-45); font-weight:400;
   text-transform:uppercase; color:var(--ink-45); margin:0;}
 .gf-strip dd{margin:1px 0 0; font-size:.8rem; font-weight:600; color:var(--ink);}
 
+/* charts are reference material, not the headline: never let one upscale over its
+   own caption or push the grid off screen */
+.gf-chart-cap{display:block; font-size:.7rem; font-weight:600; color:var(--ink-60);
+  line-height:1.4; margin:2px 0 6px;}
+[data-testid="stImage"], [data-testid="stImageContainer"], .stImage{margin-top:2px;}
+/* Capped in CSS, not by use_container_width: recent Streamlit ignores that flag for
+   st.pyplot and stretches the PNG to the column, which upscales a 440px chart to
+   700px and dwarfs the grid it is meant to annotate. Constrain the HEIGHT too:
+   Streamlit saves each figure with a tight bounding box, so a square chart crops
+   narrower than a wide one and, pinned to the same width, would be magnified more
+   and carry visibly larger type than the chart beside it. */
+[data-testid="stImage"] img, [data-testid="stImageContainer"] img, .stImage img,
+[data-testid="stFullScreenFrame"] img{
+  max-width:min(100%, 460px) !important; max-height:300px !important;
+  width:auto !important; height:auto !important; display:block;}
+
 /* streamlit widgets, compacted */
+[data-testid="stWidgetLabel"]{margin-bottom:1px;}
 [data-testid="stWidgetLabel"] p{font-size:.7rem; font-weight:600; color:var(--ink-60);
-  letter-spacing:.02em; margin-bottom:2px;}
+  letter-spacing:.02em; margin-bottom:3px; line-height:1.35;}
 [data-baseweb="select"] > div, .stTextInput input{
   border-radius:5px; border-color:var(--line-60); font-size:.8rem; min-height:34px;}
 .stTextInput input{color:var(--ink);}
@@ -200,19 +245,26 @@ def coverage_line(species: str, supported_drugs: list[str]) -> str:
 
 
 # ---- pane scaffolding -----------------------------------------------------
-def pane_open(title: str, meta: str = "", pad: bool = True) -> str:
+# Two kinds of pane, and the distinction matters:
+#   pane()        — self-contained HTML, emitted in ONE markdown call.
+#   pane_header() — the header bar for a pane whose body is Streamlit widgets;
+#                   put it inside `st.container(border=True)`, which draws the box.
+# Never open a <section> in one markdown call and close it in another: Streamlit
+# closes unclosed tags at the end of each block, so the box would wrap nothing and
+# the following widget would ride up over its bottom edge.
+def pane_header(title: str, meta: str = "") -> str:
+    # A div with heading semantics, not an <h2>: Streamlit restyles real headings
+    # (1rem of padding) and injects an anchor link into them, which made every pane
+    # header overflow its slot and collide with the element below.
     meta_html = f'<span class="gf-hd-meta">{meta}</span>' if meta else ""
-    body = '<div class="gf-pane-bd">' if pad else '<div>'
-    return (f'<section class="gf-pane"><div class="gf-pane-hd"><h2>{title}</h2>'
-            f'{meta_html}</div>{body}')
-
-
-def pane_close() -> str:
-    return "</div></section>"
+    return (f'<div class="gf-pane-hd">'
+            f'<div class="gf-pane-ttl" role="heading" aria-level="2">{title}</div>'
+            f'{meta_html}</div>')
 
 
 def pane(title: str, inner: str, meta: str = "", pad: bool = True) -> str:
-    return pane_open(title, meta, pad) + inner + pane_close()
+    body = f'<div class="gf-pane-bd">{inner}</div>' if pad else f"<div>{inner}</div>"
+    return f'<section class="gf-pane">{pane_header(title, meta)}{body}</section>'
 
 
 # ---- isolate identity strip ----------------------------------------------
