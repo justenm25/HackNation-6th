@@ -38,7 +38,8 @@ def main() -> None:
     manifest = json.loads((bundle / "bundle_manifest.json").read_text())
     thresholds = json.loads((bundle / "thresholds.json").read_text())
     drug_ids = [drug["id"] for drug in manifest["drug_panel"]]
-    dataset = load_prepared_dataset(args.dataset, drug_ids=drug_ids)
+    dataset = load_prepared_dataset(args.dataset, drug_ids=drug_ids,
+                                    label_config=manifest.get("label_policy"))
     hidden = np.array([dataset.split_by_sample[sample] == "hidden_test" for sample in dataset.sample_ids])
     results = {}
     for drug in drug_ids:

@@ -20,7 +20,8 @@ from .logistic import tune_logistic_model
 def train_bundle(*, X: spmatrix, labels_by_drug: Mapping[str, np.ndarray], sample_ids: list[str],
                  split_by_sample: Mapping[str, str], group_by_sample: Mapping[str, str],
                  feature_schema: FeatureSchema, drug_panel: list[dict], output_dir: str | Path,
-                 calibration_method: str = "sigmoid", random_state: int = 42) -> Path:
+                 calibration_method: str = "sigmoid", random_state: int = 42,
+                 label_policy: Mapping[str, object] | None = None) -> Path:
     audit = audit_split_homology(split_by_sample, group_by_sample)
     if X.shape != (len(sample_ids), len(feature_schema.columns)):
         raise InputValidationError("Feature matrix shape does not match samples/schema")
@@ -55,6 +56,7 @@ def train_bundle(*, X: spmatrix, labels_by_drug: Mapping[str, np.ndarray], sampl
     manifest = {"bundle_schema_version": "genome-firewall-bundle-v1",
                 "created_at": datetime.now(timezone.utc).isoformat(), "random_state": random_state,
                 "feature_schema_id": feature_schema.schema_id, "drug_panel": drug_panel,
+                "label_policy": dict(label_policy or {}),
                 "training": training_details}
     _write_json(output / "bundle_manifest.json", manifest)
     return output

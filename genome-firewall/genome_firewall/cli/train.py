@@ -40,7 +40,8 @@ def main() -> None:
     train_bundle(X=dataset.X, labels_by_drug=dataset.labels_by_drug, sample_ids=dataset.sample_ids,
                  split_by_sample=dataset.split_by_sample, group_by_sample=dataset.group_by_sample,
                  feature_schema=dataset.feature_schema, drug_panel=drug_panel, output_dir=args.output,
-                 calibration_method=config["calibration"].get("method", "sigmoid"))
+                 calibration_method=config["calibration"].get("method", "sigmoid"),
+                 label_policy=config["labels"])
     print(args.output)
 
 
