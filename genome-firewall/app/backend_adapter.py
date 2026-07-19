@@ -20,7 +20,11 @@ REAL_MODE = bool(BUNDLE and Path(BUNDLE).is_dir())
 BACKEND_MODE = "ecoli_bundle" if REAL_MODE else "collaborator_demo"
 
 if REAL_MODE:
-    _manifest = json.loads((Path(BUNDLE) / "bundle_manifest.json").read_text())
+    _bundle_path = Path(BUNDLE)
+    _manifest = json.loads((_bundle_path / "bundle_manifest.json").read_text())
+    _precomputed_path = _bundle_path / "precomputed_samples.json"
+    _precomputed_samples = (json.loads(_precomputed_path.read_text())
+                            if _precomputed_path.exists() else {})
     SUPPORTED_SPECIES = "Escherichia coli"
     SUPPORTED_DRUGS = [drug.get("display_name", drug["id"]) for drug in _manifest["drug_panel"]]
 else:
@@ -31,7 +35,7 @@ def list_samples() -> list[str]:
     if not REAL_MODE:
         from src.pipeline import list_samples as legacy_list
         return legacy_list()
-    return []
+    return list(_precomputed_samples)
 
 
 def predict_genome(source, species: str = SUPPORTED_SPECIES,
@@ -39,11 +43,24 @@ def predict_genome(source, species: str = SUPPORTED_SPECIES,
     if not REAL_MODE:
         from src.pipeline import predict_genome as legacy_predict
         return legacy_predict(source, species=species, sample_name=sample_name)
+    from genome_firewall.api import predict
+
     if sample_name:
-        raise ValueError("Bundled demo samples are unavailable in E. coli bundle mode")
+        relative = _precomputed_samples.get(sample_name)
+        if not isinstance(relative, str):
+            raise ValueError(f"Unknown bundled demo sample: {sample_name}")
+        sample_path = (_bundle_path / relative).resolve()
+        if _bundle_path.resolve() not in sample_path.parents or not sample_path.is_file():
+            raise ValueError(f"Invalid bundled demo sample: {sample_name}")
+        report = predict(
+            sample_path, bundle_path=BUNDLE, input_format="amrfinder_tsv",
+            sample_id=sample_name, species_id="escherichia_coli",
+            marker_free_susceptible_policy=os.environ.get(
+                "GF_SUSCEPTIBLE_POLICY", "conservative"),
+        )
+        return _translate_report(report)
     if not source:
         raise ValueError("Upload a quality-checked FASTA")
-    from genome_firewall.api import predict
 
     with tempfile.NamedTemporaryFile(suffix=".fasta", delete=False) as handle:
         handle.write(source if isinstance(source, bytes) else source.encode())

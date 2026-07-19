@@ -27,3 +27,31 @@ To use it:
 4. Select **Analyze genome**.
 
 AMRFinderPlus analyzes the full assembly, so the demo may take a few minutes on a laptop.
+
+## Precomputed hosted-demo path
+
+Free Streamlit hosting cannot install AMRFinderPlus. For that environment, the bundle also
+ships the raw AMRFinderPlus 4.2.7 result at:
+
+```text
+models/ecoli-bundle/precomputed/demo_ecoli_562.45650.tsv
+```
+
+`models/ecoli-bundle/precomputed_samples.json` registers it as
+`demo_ecoli_562.45650`. In real bundle mode, choose **Sample genome** and then this sample;
+the adapter sends the TSV directly to `genome_firewall.api.predict` with
+`input_format="amrfinder_tsv"`. AMRFinderPlus is not invoked at runtime.
+
+The TSV was generated with the same project environment used for model construction:
+
+```text
+AMRFinderPlus 4.2.7
+NCBI database 2026-05-15.1
+amrfinder -n examples/demo_ecoli_562.45650.fna -O Escherichia -o demo_ecoli_562.45650.tsv
+```
+
+SHA-256 of the raw TSV:
+
+```text
+0a5d157a303ab7f62a72159d0212e21516453236c5261db307a03da82943aebc
+```

@@ -43,6 +43,7 @@ html(T.topbar(SUPPORTED_SPECIES, SUPPORTED_DRUGS,
               if BACKEND_MODE == "collaborator_demo" else ""))
 
 result = st.session_state.get("result")
+PRECOMPUTED_ONLY = os.environ.get("GF_PRECOMPUTED_ONLY", "").lower() in {"1", "true", "yes"}
 
 # ---- split pane: input rail | antibiogram | evidence ----------------------
 rail, center, detail = st.columns([1.05, 2.5, 1.45], gap="small")
@@ -54,11 +55,16 @@ with rail:
         st.selectbox("Organism", [SUPPORTED_SPECIES],
                      help="Coverage is limited to one species.")
         samples = list_samples()
-        source_modes = ["Sample genome", "Upload FASTA"] if samples else ["Upload FASTA"]
+        source_modes = (["Sample genome"] if PRECOMPUTED_ONLY else
+                        (["Sample genome", "Upload FASTA"] if samples else ["Upload FASTA"]))
         mode = st.radio("Source", source_modes, horizontal=True)
         sample_name, uploaded, species = None, None, SUPPORTED_SPECIES
         if mode == "Sample genome":
-            sample_name = st.selectbox("Sample genome (held-out)", samples)
+            sample_name = st.selectbox(
+                "Precomputed demo genome" if REAL_MODE else "Sample genome (held-out)",
+                samples,
+                help=("Uses a shipped AMRFinderPlus result, so the hosted demo does not "
+                      "need AMRFinderPlus at runtime.") if REAL_MODE else None)
         else:
             uploaded = st.file_uploader("Quality-checked assembly (FASTA)",
                                         type=["fna", "fasta", "fa", "txt"])

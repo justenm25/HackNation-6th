@@ -153,10 +153,31 @@ def test_a_missing_bundle_directory_falls_back_to_the_demo(tmp_path, real_mode):
 def test_demo_only_entry_points_are_refused_in_bundle_mode(tmp_path, real_mode):
     adapter = real_mode(build_bundle(tmp_path / "bundle"))
 
-    with pytest.raises(ValueError, match="Bundled demo samples are unavailable"):
+    with pytest.raises(ValueError, match="Unknown bundled demo sample"):
         adapter.predict_genome(b">c\nACGT\n", sample_name="demo-1")
     with pytest.raises(ValueError, match="Upload a quality-checked FASTA"):
         adapter.predict_genome(None)
+
+
+def test_precomputed_bundle_sample_predicts_without_running_amrfinder(
+        tmp_path, real_mode, monkeypatch):
+    bundle = build_bundle(tmp_path / "bundle")
+    (bundle / "precomputed").mkdir()
+    shutil.copyfile(FIXTURES / "amrfinder_genes.tsv",
+                    bundle / "precomputed" / "demo.tsv")
+    (bundle / "precomputed_samples.json").write_text(
+        json.dumps({"demo-1": "precomputed/demo.tsv"}), encoding="utf-8")
+    adapter = real_mode(bundle)
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("AMRFinder must not run for a precomputed sample")
+
+    monkeypatch.setattr("genome_firewall.api.run_amrfinder", forbidden)
+    assert adapter.list_samples() == ["demo-1"]
+    result = adapter.predict_genome(None, sample_name="demo-1")
+
+    assert result.genome_id == "demo-1"
+    assert len(result.predictions) == 2
 
 
 # ---------------------------------------------------------------- report translation

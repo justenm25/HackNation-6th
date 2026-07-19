@@ -90,6 +90,17 @@ For the included demo, no unzipping or preparation is needed:
 6. Choose `genome-firewall/examples/demo_ecoli_562.45650.fna` from the cloned repository.
 7. Select **Analyze genome** and wait for AMRFinderPlus to finish.
 
+On a free hosted deployment where AMRFinderPlus is unavailable, choose **Sample genome**
+instead of **Upload FASTA**, select `demo_ecoli_562.45650`, and analyze it. That path uses the
+raw precomputed AMRFinderPlus TSV packaged with the model and still runs the real four E. coli
+models. Arbitrary FASTA uploads require the local launcher or the Hugging Face Docker image,
+both of which provide AMRFinderPlus at runtime.
+
+For Streamlit Community Cloud, set the app entrypoint to the repository-root
+`streamlit_app.py`. This wrapper selects the real E. coli bundle and precomputed-only mode;
+the root `requirements.txt` pins the matching scikit-learn runtime. It intentionally hides
+FASTA upload because that host cannot execute AMRFinderPlus.
+
 The upload must be plain-text FASTA. A valid file begins like this:
 
 ```fasta
@@ -192,7 +203,8 @@ feature row is accepted only when its schema ID and ordered columns exactly matc
 | Path | Purpose |
 |---|---|
 | `README.md` | Main installation, demo, architecture, performance, and safety guide. |
-| `requirements.txt` | Lightweight legacy/demo deployment requirements; not the real E. coli runtime. |
+| `requirements.txt` | Free-host dependencies pinned for the real E. coli bundle and precomputed sample. |
+| `streamlit_app.py` | Free-host entrypoint: selects the E. coli bundle and precomputed-only UI. |
 | `deploy/huggingface/` | Docker deployment that installs AMRFinderPlus and serves real E. coli predictions on port 7860. |
 | `docs/` | Technical provenance PDF and archived execution/frontend/pitch plans. |
 | `HANDOFF_CHECKLIST.md` | Operational checklist from cluster artifacts through final demo. |
@@ -239,6 +251,8 @@ feature row is accepted only when its schema ID and ordered columns exactly matc
 | `thresholds.json` | Drug-specific resistant and susceptible cutoffs; the middle interval is no-call. |
 | `leakage_audit.json` | Proof that none of the 1,548 Mash groups crosses dataset partitions. |
 | `metrics/summary.json` | Full hidden-test classification, calibration, abstention, reliability, and group metrics. |
+| `precomputed_samples.json` | Names and relative paths of demo samples that bypass runtime AMRFinder safely. |
+| `precomputed/*.tsv` | Raw, version-documented AMRFinderPlus result used by the free hosted demo. |
 
 ### Legacy collaborator demo
 
