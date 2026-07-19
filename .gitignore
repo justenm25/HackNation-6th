@@ -27,3 +27,7 @@ tmp/
 *.fna
 *.fasta
 *.fa
+
+# One public, provenance-documented genome ships for the evaluator demo.
+!genome-firewall/examples/
+!genome-firewall/examples/demo_ecoli_562.45650.fna
