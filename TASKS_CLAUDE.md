@@ -56,6 +56,22 @@ or report-contract logic.
   reload `app.backend_adapter`, and verify dynamic E. coli species/drugs plus report
   translation. Mock AMRFinder execution; do not change adapter or model logic.
 
+## C-010 — Clinical UI rebuild (high-density split pane)
+
+- Status: DONE — `app/theme.py`, `app/streamlit_app.py`, `app/charts.py`,
+  `app/report.py`, `.streamlit/config.toml`, and the design-system section of
+  `genome-firewall/CLAUDE.md`. Suite still 43 passed. No model, grouping, split,
+  calibration, feature-schema, or report-contract logic touched.
+- Rebuild the Streamlit demo as a dense EHR-style split pane (input rail /
+  antibiogram / evidence pane) on a slate design system: blue #2563EB for primary
+  actions only, emerald/amber/rose for state, Inter with tabular numerals, compact
+  spacing, WCAG 2.1 AA contrast and visible focus states.
+- Presentation-layer fix: a drug now cites only the determinants that back its own
+  call (`theme.cited_genes`), because the backend attaches the genome-wide
+  determinant set to every drug.
+- Verify: `python -m pytest -q`; `streamlit run app/streamlit_app.py` and exercise
+  the empty, known-gene, statistical, and no-call states.
+
 ## C-009 — Final handoff checklist
 
 - Status: DONE — `HANDOFF_CHECKLIST.md` at the repository root, unblocked by C-007.

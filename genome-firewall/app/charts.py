@@ -1,18 +1,22 @@
-"""Charts for Genome Firewall — monochrome slate, no chart junk (see CLAUDE.md)."""
+"""Charts for Genome Firewall — slate, no chart junk (see CLAUDE.md).
+
+Same tokens as app/theme.py. Marks are slate; no color encodes a result here.
+"""
 from __future__ import annotations
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-INK    = "#10212E"
-LINE   = "#D8DEE6"
-MUTED  = "#8A94A0"
+INK    = "#0F172A"   # slate-900
+LINE   = "#E2E8F0"   # slate-200
+MUTED  = "#64748B"   # slate-500
 SURF   = "#FFFFFF"
 
 plt.rcParams.update({
-    "font.size": 9, "axes.edgecolor": LINE, "axes.labelcolor": "#5A6b78",
+    "font.size": 8.5, "axes.edgecolor": "#CBD5E1", "axes.labelcolor": "#475569",
     "xtick.color": MUTED, "ytick.color": MUTED, "text.color": INK,
     "figure.facecolor": SURF, "axes.facecolor": SURF,
+    "axes.labelsize": 8, "xtick.labelsize": 8, "ytick.labelsize": 8,
 })
 
 
@@ -28,7 +32,7 @@ def reliability_curve(points=None):
     points = points or []
     conf = [p.get("confidence", p.get("mean_predicted")) for p in points]
     obs = [p.get("accuracy", p.get("observed_resistant_fraction")) for p in points]
-    fig, ax = plt.subplots(figsize=(4.5, 4.0))
+    fig, ax = plt.subplots(figsize=(4.2, 3.4))
     _clean(ax)
     ax.grid(color=LINE, linewidth=0.7)
     ax.plot([0.5, 1], [0.5, 1], "--", color=MUTED, lw=1.4, label="Perfect calibration")
@@ -45,7 +49,7 @@ def auroc_bars(metrics):
     """Per-drug AUROC (threshold-free discrimination), sorted, with a 0.5 = random line."""
     ms = sorted(metrics, key=lambda m: m.auroc)
     drugs = [m.drug for m in ms]; vals = [m.auroc for m in ms]
-    fig, ax = plt.subplots(figsize=(5.6, 0.5 * len(drugs) + 1.0))
+    fig, ax = plt.subplots(figsize=(5.2, 0.42 * len(drugs) + 0.9))
     _clean(ax)
     ax.axvline(0.5, color=MUTED, lw=1.2, ls="--")
     ax.text(0.5, len(drugs) - 0.35, " random", color=MUTED, fontsize=8, va="center")
@@ -64,7 +68,7 @@ def honesty_dumbbell(metrics):
     rnd = [m.balanced_acc_random for m in metrics]
     grp = [m.balanced_acc_grouped for m in metrics]
     y = range(len(drugs))
-    fig, ax = plt.subplots(figsize=(5.6, 0.55 * len(drugs) + 1.1))
+    fig, ax = plt.subplots(figsize=(5.2, 0.48 * len(drugs) + 1.0))
     _clean(ax)
     ax.grid(axis="x", color=LINE, linewidth=0.7)
     for i in y:

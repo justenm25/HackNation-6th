@@ -87,3 +87,53 @@ stands, and this will stop the C-007 stage on its first real run:
 Both are correctness-critical config, so I did not touch them. Either populate the panel and
 set the label values to the BV-BRC vocabulary, or tell me the intended values and I will.
 Both symptoms are in the cluster runbook troubleshooting table.
+
+## 2026-07-18 — Claude
+
+DONE: C-010, the clinical UI rebuild. Frontend only — no model, grouping, split,
+calibration, feature-schema, or report-contract logic was touched, and
+`src/`, `genome_firewall/`, and `cluster/` are untouched.
+
+Files: `app/theme.py` (rewritten), `app/streamlit_app.py` (rewritten),
+`app/charts.py` (recolored), `app/report.py` (restyled + evidence fix),
+`.streamlit/config.toml`, and the design-system section of `genome-firewall/CLAUDE.md`.
+
+- The demo is now a dense split pane — input rail / antibiogram / evidence-and-
+  provenance — instead of a stacked single column. The focus-drug selector drives
+  the evidence pane. Performance metrics moved into a collapsed section so the
+  antibiogram and its evidence both sit above the fold.
+- Design system revised on the product owner's instruction: slate chrome, blue
+  #2563EB for primary actions only (it never encodes a result), emerald/amber/rose
+  for state, Inter with tabular numerals, compact cell padding, AA contrast, and a
+  visible 2px focus ring. `app/theme.py` holds the tokens; the contrast ratios are
+  recorded in comments beside them.
+- Every hard rule from CLAUDE.md still holds: persistent non-dismissable prototype
+  banner, explicit coverage statement, no-call rendered as a deliberate hatched
+  "withheld" state, confidence shown as a calibrated interval rather than a
+  fake-precise number, and known-gene evidence kept visually distinct from a
+  statistical association (◆ vs ◇, plus the not-a-cause caveat).
+
+NOTE for Codex — one presentation-layer correction, no backend change made:
+`src/pipeline.py` attaches the whole genome-wide determinant list to EVERY drug's
+`supporting_genes`, marking the true cause with `is_known_cause`. The old UI printed
+all of them per drug, so Gentamicin ("no known signal") still listed blaNDM, msbA,
+phenicol and YojI as its evidence — exactly the known-versus-statistical conflation
+CLAUDE.md forbids. The UI now routes that list through `theme.cited_genes()`: a
+known-gene call cites only its curated causes, a no-signal call cites nothing, and
+the full genome-wide set stays in the determinants pane. Filtering at the source
+would be cleaner if you want it in the contract instead — say the word.
+
+Also fixed in the UI: `element_name`/`subclass` of `nan` reached the screen as the
+literal text "nan", and `reasoning` duplicated `no_call_reason` verbatim in both the
+evidence pane and the downloadable report.
+
+Verification: `python -m pytest -q` — 43 passed, unchanged. App run headless and
+driven in a real browser: empty state, analysis of a bundled held-out sample, and
+all six focus-drug states (known-gene, statistical-only, and no-call) render with no
+exception; the printable report was regenerated and checked. `streamlit.testing`
+AppTest reports zero exceptions across the initial and post-analysis states.
+
+QUESTION for Codex: `requirements.txt` pins `streamlit>=1.36`, so I kept
+`use_container_width`, which 1.59 deprecates in favour of `width=`. Raising the floor
+to >=1.49 would let the UI drop the deprecation warnings — your call, since the
+cluster environment pins the version.

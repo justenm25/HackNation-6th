@@ -35,15 +35,29 @@ the aesthetic.
 3. Decision Report (the Streamlit UI): the report described in the design system.
 
 ## Design system (follow exactly)
-- The UI chrome is near-monochrome slate. The ONLY saturated colors in the app are
-  the three call states.
-- Palette: --paper #F7F8FA, --ink #10212E, --line #D8DEE6,
-  --fail #A4373A, --work #1F7A5A, --nocall #8A8F98 (hatched fill).
-- Type: IBM Plex Sans for UI; IBM Plex Mono for ALL data (genes, mutations,
-  accessions, sequences, confidence numerals) with tabular-nums.
-- No landing hero — open directly on the tool.
+Revised 2026-07-18 to the high-density EHR system below. `app/theme.py` is the single
+source of truth for tokens; import from it rather than hard-coding hex values.
+
+- Layout: a dense split pane — input rail, antibiogram, evidence/provenance. No
+  landing hero, no large cards, no floating layout. Open directly on the tool.
+- Chrome is slate. Blue is reserved for primary actions and NEVER encodes a result.
+- Palette: --canvas #F8FAFC, --surface #FFFFFF, --ink #0F172A (slate-900),
+  --ink-60 #475569, --ink-45 #64748B (lightest text that still passes AA),
+  --line #E2E8F0, --action #2563EB (blue-600, primary action only).
+- State: --work #047857 (emerald-700), --warn #B45309 (amber-700),
+  --fail #BE123C (rose-700), --nocall #64748B with a hatched fill. No gradients.
+- Type: Inter (SF Pro fallback) throughout. Every numeral — confidences, intervals,
+  metrics, times — carries tabular-nums via `.gf-num`. Identifiers only (gene
+  symbols, accessions, sample ids) use mono via `.gf-id`.
+- Density: compact padding, 5–7px in grid cells; maximize data above the fold.
+- Accessibility: WCAG 2.1 AA contrast (token comments record the ratios), a visible
+  2px blue focus ring on every interactive element, reduced motion respected, and
+  meaning never carried by color alone (call chips are also labelled text).
 - Signature element: per-antibiotic call + calibrated-confidence-interval +
   evidence-provenance mark. No-call is a deliberate "withheld" state, never an error.
+- Evidence honesty: a drug cites ONLY the determinants that back its own call. The
+  backend attaches the genome-wide set to every drug, so route it through
+  `theme.cited_genes()`; the full set belongs in the determinants pane.
 - Copy: active voice, plain, clinical, sentence case. Name things by what the user
   controls. Empty/error states give direction, not apologies or mood.
 

@@ -1,10 +1,14 @@
 """
-Genome Firewall — Streamlit demo (Module 03). Clinical instrument; see CLAUDE.md.
+Genome Firewall — clinical decision-support console (Module 03).
+
+Dense split-pane layout, EHR conventions: an input rail on the left, the
+antibiogram in the centre, and evidence/provenance for the focused drug on the
+right. See CLAUDE.md — this is a clinical instrument, not a website.
 
 Run from the project root (genome-firewall/):
     streamlit run app/streamlit_app.py
 
-Talks to the backend ONLY through src.pipeline (see src/contract.py).
+Talks to the backend ONLY through the contract in src/contract.py.
 """
 import os
 import sys
@@ -15,7 +19,7 @@ if ROOT not in sys.path:
 
 import streamlit as st
 from app.backend_adapter import (
-    BACKEND_MODE, SUPPORTED_DRUGS, SUPPORTED_SPECIES, get_model_metrics,
+    BACKEND_MODE, REAL_MODE, SUPPORTED_DRUGS, SUPPORTED_SPECIES, get_model_metrics,
     get_reliability, list_samples, predict_genome,
 )
 from src.contract import Verdict, DEFENSIVE_NOTE
@@ -23,157 +27,182 @@ from app import theme as T
 from app import charts
 from app.report import build_html_report
 
-st.set_page_config(page_title="Genome Firewall", layout="wide")
+st.set_page_config(page_title="Genome Firewall — antibiotic response",
+                   layout="wide", initial_sidebar_state="collapsed")
 st.markdown(T.inject_css(), unsafe_allow_html=True)
 
 
-def notice(text: str) -> None:
-    st.markdown(
-        f'<div style="background:#fff;border:1px solid #D8DEE6;border-left:4px solid #10212E;'
-        f'border-radius:6px;padding:9px 14px;margin:8px 0;font-size:.85rem;color:#10212E;">{text}</div>',
-        unsafe_allow_html=True)
+def html(markup: str) -> None:
+    st.markdown(markup, unsafe_allow_html=True)
 
 
-# ---- persistent trust surface --------------------------------------------
-st.markdown(T.safety_banner(), unsafe_allow_html=True)
-st.markdown(T.wordmark(), unsafe_allow_html=True)
-st.markdown(T.coverage_line(SUPPORTED_SPECIES, SUPPORTED_DRUGS), unsafe_allow_html=True)
-if BACKEND_MODE == "collaborator_demo":
-    notice("<b>Demo mode.</b> Showing the collaborator's shipped Klebsiella model. "
-           "Set <span class='gf-mono'>GF_MODEL_BUNDLE</span> to use the E. coli backend.")
-st.markdown('<hr style="border:none;border-top:1px solid #D8DEE6;margin:.4rem 0 1rem;">',
-            unsafe_allow_html=True)
+# ---- persistent trust surface + identity strip ----------------------------
+html(T.safety_banner())
+html(T.topbar(SUPPORTED_SPECIES, SUPPORTED_DRUGS,
+              "Demo mode · collaborator Klebsiella model"
+              if BACKEND_MODE == "collaborator_demo" else ""))
 
-rail, main = st.columns([1, 3], gap="large")
+result = st.session_state.get("result")
 
-# ---- input rail -----------------------------------------------------------
+# ---- split pane: input rail | antibiogram | evidence ----------------------
+rail, center, detail = st.columns([1.05, 2.5, 1.45], gap="small")
+
+# ---- pane 1: input --------------------------------------------------------
 with rail:
-    st.markdown("**Input**")
-    st.selectbox("Organism", [SUPPORTED_SPECIES], help="Coverage is limited to one species.")
+    html(T.pane_open("Input", "step 1"))
+    st.selectbox("Organism", [SUPPORTED_SPECIES],
+                 help="Coverage is limited to one species.")
     samples = list_samples()
     source_modes = ["Sample genome", "Upload FASTA"] if samples else ["Upload FASTA"]
-    mode = st.radio("Source", source_modes, label_visibility="collapsed")
+    mode = st.radio("Source", source_modes, horizontal=True)
     sample_name, uploaded, species = None, None, SUPPORTED_SPECIES
     if mode == "Sample genome":
         sample_name = st.selectbox("Sample genome (held-out)", samples)
     else:
         uploaded = st.file_uploader("Quality-checked assembly (FASTA)",
                                     type=["fna", "fasta", "fa", "txt"])
-        species = st.text_input("Species", value=SUPPORTED_SPECIES)
+        # A bundle covers exactly one species, so in bundle mode the field is fixed.
+        # The demo backend models the out-of-coverage path itself, so it stays editable.
+        species = st.text_input("Species", value=SUPPORTED_SPECIES,
+                                disabled=REAL_MODE,
+                                help="This model bundle covers one species."
+                                if REAL_MODE else None)
     go = st.button("Analyze genome", type="primary", use_container_width=True)
-    if go:
-        src = uploaded.read() if uploaded else None
-        with st.spinner("Reading genome → detecting determinants → predicting…"):
-            st.session_state["result"] = predict_genome(src, species=species, sample_name=sample_name)
+    html(T.pane_close())
 
-# ---- main -----------------------------------------------------------------
-with main:
-    result = st.session_state.get("result")
+    if go:
+        # Refuse before calling the backend rather than letting it substitute a
+        # default: a missing file or an out-of-coverage species must never come back
+        # looking like a result.
+        refusal = None
+        if mode == "Upload FASTA":
+            if uploaded is None:
+                refusal = ("<b>No genome selected.</b> Choose a quality-checked FASTA "
+                           "file, then run the analysis.")
+            elif REAL_MODE and species.strip().lower() != SUPPORTED_SPECIES.lower():
+                refusal = ("<b>Out of coverage.</b> This bundle covers "
+                           f"<i>{SUPPORTED_SPECIES}</i> only, so nothing was analyzed. "
+                           "Analyzing another species through it would produce an "
+                           "unsupported result.")
+        if refusal:
+            st.session_state.pop("result", None)
+            result = None
+            html(T.notice(refusal, "critical"))
+        else:
+            try:
+                with st.spinner("Reading genome → detecting determinants → predicting…"):
+                    st.session_state["result"] = predict_genome(
+                        uploaded.read() if uploaded else None,
+                        species=species, sample_name=sample_name)
+                result = st.session_state["result"]
+            except Exception as exc:  # surfaced to the user, never a traceback
+                st.session_state.pop("result", None)
+                result = None
+                detail = str(exc).strip() or exc.__class__.__name__
+                html(T.notice(
+                    "<b>The genome could not be analyzed.</b> Nothing was predicted. "
+                    f"Check that the file is a quality-checked assembly. <br>"
+                    f'<span style="color:{T.INK_45};">{detail[:300]}</span>', "critical"))
+
+    html('<div style="height:6px;"></div>')
+    html(T.pane("Coverage", T.coverage_line(SUPPORTED_SPECIES, SUPPORTED_DRUGS)))
+
+    if result:
+        html('<div style="height:6px;"></div>')
+        html(T.pane("Detected determinants",
+                    T.determinant_chips(result.detected_genes),
+                    meta=f"{len(result.detected_genes)} in genome"))
+
+# ---- pane 2: antibiogram --------------------------------------------------
+focused = None
+with center:
     if not result:
-        st.markdown(T.empty_state(SUPPORTED_SPECIES), unsafe_allow_html=True)
+        html(T.pane("Predicted antibiotic response",
+                    T.empty_state(SUPPORTED_SPECIES), meta="awaiting genome"))
     else:
-        st.markdown(
-            f'<div style="font-size:1.05rem;font-weight:600;">Predicted response — '
-            f'isolate <span class="gf-mono">{result.genome_id}</span></div>'
-            f'<div class="gf-mono" style="font-size:.8rem;color:#5A6b78;margin:2px 0 10px;">'
-            f'{result.species} · lineage {result.mlst_or_cluster or "unknown"} · '
-            f'novelty {result.novelty_score:.0%} · signal→decision {result.speed_seconds:.1f}s</div>',
-            unsafe_allow_html=True)
+        withheld = sum(1 for p in result.predictions if p.verdict == Verdict.NO_CALL)
+        html(T.pane_open(
+            "Predicted antibiotic response",
+            f"{len(result.predictions)} drugs · {withheld} withheld", pad=False))
+        html(T.isolate_strip(result))
+        html('<div style="border-top:1px solid #E2E8F0;"></div>')
 
         if not result.species_supported:
-            notice("<b>Out of coverage.</b> This species is not supported — all antibiotics "
-                   "are withheld. Supported: " + SUPPORTED_SPECIES + ".")
+            html('<div style="padding:0 12px;">' + T.notice(
+                "<b>Out of coverage.</b> This species is not supported, so every "
+                f"antibiotic is withheld. Supported: {SUPPORTED_SPECIES}.",
+                "critical") + "</div>")
         elif result.is_ood:
-            notice("<b>Novel lineage.</b> This genome is unlike the training set "
-                   f"(novelty {result.novelty_score:.0%}); calls are withheld where they cannot "
-                   "be trusted. Withholding is deliberate, not an error.")
+            html('<div style="padding:0 12px;">' + T.notice(
+                "<b>Novel lineage.</b> This genome is unlike the training set "
+                f"(novelty {result.novelty_score:.0%}); calls are withheld where they "
+                "cannot be trusted. Withholding is deliberate, not an error.",
+                "warn") + "</div>")
 
-        st.markdown(T.report_table(result.predictions), unsafe_allow_html=True)
-        st.write("")
-        st.download_button("Download report (HTML — print to PDF)",
-                           data=build_html_report(result),
-                           file_name="genome_firewall_report.html",
-                           mime="text/html")
+        html(T.antibiogram(result.predictions))
+        html(T.pane_close())
 
-        # ---- evidence & provenance ----
-        st.markdown("##### Evidence & provenance")
-        for p in result.predictions:
-            with st.expander(f"{p.drug} — {T.CALL_LABEL[p.verdict]}"):
-                st.markdown(f"<span style='color:#5A6b78;font-size:.88rem;'>{p.reasoning}</span>",
-                            unsafe_allow_html=True)
-                gate = ("not assessed" if p.target == "not assessed" else
-                        ("present" if p.target_present else "absent (intrinsic resistance)"))
-                st.markdown(f"<span style='font-size:.82rem;color:#5A6b78;'>Target gate: "
-                            f"<span class='gf-mono'>{gate}</span></span>", unsafe_allow_html=True)
-                if p.evidence_category.value == "known_gene" and p.supporting_genes:
-                    st.markdown("<span style='font-size:.82rem;'>Known resistance determinants:</span>",
-                                unsafe_allow_html=True)
-                    for g in p.supporting_genes:
-                        st.markdown(
-                            f"<span class='gf-mono' style='font-size:.82rem;'>{g.symbol}</span> "
-                            f"<span style='font-size:.78rem;color:#8A94A0;'>· {g.method} · "
-                            f"{g.element_name}</span>", unsafe_allow_html=True)
-                elif p.evidence_category.value == "statistical":
-                    genes = ", ".join(g.symbol for g in p.supporting_genes) or "model features"
-                    st.markdown(
-                        f"<div style='font-size:.82rem;'>Leaned on <span class='gf-mono'>{genes}</span> "
-                        f"— a statistical association.</div>"
-                        f"<div style='font-size:.78rem;color:#A4373A;margin-top:2px;'>Caveat: "
-                        f"feature importance is not proof of a biological cause.</div>",
-                        unsafe_allow_html=True)
-                else:
-                    st.markdown("<span style='font-size:.82rem;color:#8A94A0;'>No known resistance "
-                                "determinant detected.</span>", unsafe_allow_html=True)
+        row = st.columns([1, 1])
+        with row[0]:
+            st.download_button("Download report (HTML — print to PDF)",
+                               data=build_html_report(result),
+                               file_name="genome_firewall_report.html",
+                               mime="text/html", use_container_width=True)
 
-        # ---- genome determinants ----
-        if result.detected_genes:
-            st.markdown("##### Detected determinants (genome)")
-            chips = " ".join(
-                f"<span class='gf-mono' style='background:#EEF1F4;border:1px solid #D8DEE6;"
-                f"border-radius:4px;padding:1px 7px;font-size:.8rem;margin:0 4px 4px 0;"
-                f"display:inline-block;'>{g.symbol}</span>" for g in result.detected_genes)
-            st.markdown(chips, unsafe_allow_html=True)
+# ---- pane 3: evidence & provenance ---------------------------------------
+with detail:
+    if not result:
+        html(T.pane("Evidence & provenance",
+                    '<div style="font-size:.76rem;color:#64748B;line-height:1.5;">'
+                    "Evidence for the focused antibiotic appears here: the target "
+                    "gate, the calibration state, and whether the call rests on a "
+                    "curated resistance determinant or a statistical association "
+                    "only.</div>", meta="—"))
+    else:
+        picked = st.selectbox("Focus drug", [p.drug for p in result.predictions])
+        focused = next(p for p in result.predictions if p.drug == picked)
+        html(T.pane("Evidence & provenance", T.evidence_detail(focused),
+                    meta=T.CALL_LABEL[focused.verdict].lower()))
 
-        # ---- performance & honesty ----
-        st.markdown("##### Performance & honesty (held-out genetic groups)")
+# ---- performance, below the fold -----------------------------------------
+if result:
+    html('<div style="height:8px;"></div>')
+    with st.expander("Model performance and honesty — held-out genetic groups",
+                     expanded=False):
         m = get_model_metrics()
         if not m:
-            notice("Evaluation metrics are not present in this model bundle yet.")
+            html(T.notice("Evaluation metrics are not present in this model bundle yet."))
         else:
-            brier = sum(x.brier for x in m) / len(m)
-            ncall = sum(x.no_call_rate for x in m) / len(m)
-            acc = sum(x.accuracy_on_calls for x in m) / len(m)
-        if m:
-            st.markdown(
-                '<div class="gf-mono" style="display:flex;gap:26px;font-size:.85rem;margin-bottom:8px;">'
-            f'<span>Mean Brier <b>{brier:.2f}</b></span>'
-            f'<span>Mean no-call rate <b>{ncall:.0%}</b></span>'
-                f'<span>Accuracy on calls <b>{acc:.2f}</b></span></div>', unsafe_allow_html=True)
+            html(T.kpi_row([
+                ("Mean Brier", f"{sum(x.brier for x in m) / len(m):.2f}",
+                 "lower is better"),
+                ("Mean no-call rate", f"{sum(x.no_call_rate for x in m) / len(m):.0%}",
+                 "withheld by design"),
+                ("Accuracy on calls", f"{sum(x.accuracy_on_calls for x in m) / len(m):.2f}",
+                 "when not withheld"),
+                ("Drugs evaluated", f"{len(m)}", "grouped split"),
+            ]))
+            html('<div style="height:8px;"></div>')
+            html(T.metrics_grid(m))
+            html('<div style="height:10px;"></div>')
             c1, c2 = st.columns(2)
             with c1:
-                st.markdown("<span style='font-size:.82rem;color:#5A6b78;'>Discrimination — resistant "
-                        "vs susceptible separation (AUROC, 0.5 = random)</span>", unsafe_allow_html=True)
+                html('<div style="font-size:.7rem;font-weight:600;color:#475569;">'
+                     "Discrimination — resistant vs susceptible separation "
+                     "(AUROC, 0.5 = random)</div>")
                 st.pyplot(charts.auroc_bars(m), use_container_width=True)
             with c2:
-                st.markdown("<span style='font-size:.82rem;color:#5A6b78;'>Reliability — is the "
-                        "confidence trustworthy?</span>", unsafe_allow_html=True)
-                st.pyplot(charts.reliability_curve(get_reliability()), use_container_width=True)
-            st.dataframe(
-            [{"Drug": x.drug, "AUROC": f"{x.auroc:.2f}", "PR-AUC": f"{x.pr_auc:.2f}",
-              "Recall R": f"{x.recall_resistant:.2f}", "Recall S": f"{x.recall_susceptible:.2f}",
-              "Grouped / random": f"{x.balanced_acc_grouped:.2f} / {x.balanced_acc_random:.2f}",
-              "Brier": f"{x.brier:.2f}", "No-call %": f"{x.no_call_rate:.0%}"}
-             for x in m],
-                use_container_width=True, hide_index=True)
-        st.markdown(
-            "<div style='font-size:.82rem;color:#5A6b78;line-height:1.5;'>"
-            "<b>Reading this.</b> AUROC measures resistant-versus-susceptible ranking; Brier score "
-            "measures probability quality. Grouped evaluation keeps related genomes together, "
-            "reducing lineage leakage. Low-confidence or conflicting cases are deliberately withheld."
-            "</div>", unsafe_allow_html=True)
+                html('<div style="font-size:.7rem;font-weight:600;color:#475569;">'
+                     "Reliability — is the confidence trustworthy?</div>")
+                st.pyplot(charts.reliability_curve(get_reliability()),
+                          use_container_width=True)
+        html('<div style="font-size:.73rem;color:#475569;line-height:1.5;">'
+             "<b>Reading this.</b> AUROC measures resistant-versus-susceptible ranking; "
+             "the Brier score measures probability quality. Grouped evaluation keeps "
+             "related genomes together, reducing lineage leakage. Low-confidence or "
+             "conflicting cases are deliberately withheld.</div>")
 
-    st.markdown('<hr style="border:none;border-top:1px solid #D8DEE6;margin:1rem 0 .5rem;">',
-                unsafe_allow_html=True)
-    st.markdown(f"<span style='font-size:.78rem;color:#8A94A0;'>{DEFENSIVE_NOTE} "
-                "Every result must be confirmed by standard laboratory testing.</span>",
-                unsafe_allow_html=True)
+# ---- footer ---------------------------------------------------------------
+html(f'<div style="border-top:1px solid #E2E8F0;margin-top:10px;padding-top:7px;'
+     f'font-size:.7rem;color:#64748B;line-height:1.5;">{DEFENSIVE_NOTE} '
+     "Every result must be confirmed by standard laboratory testing.</div>")
