@@ -32,3 +32,27 @@ or report-contract logic.
 - Add tests for argument parsing, index bounds, resume/skip behavior, and malformed
   cohort rows using tiny fixtures/mocks.
 - Tests may not alter production behavior or run AMRFinder/Mash over real genomes.
+
+## C-007 — Train/evaluate Slurm stage
+
+- Status: READY
+- Extend the existing cluster workflow with a dependent CPU-only job that invokes the
+  existing `genome_firewall.cli.train` and `genome_firewall.cli.evaluate` entrypoints after
+  dataset assembly.
+- All paths/resources must remain configurable in `cluster.env.example`.
+- Do not change training, calibration, threshold, grouping, or evaluation Python logic.
+- Preserve a mode that stops after dataset assembly.
+
+## C-008 — Real-backend adapter tests
+
+- Status: READY
+- Add isolated tests that create or mock a minimal frozen bundle, set `GF_MODEL_BUNDLE`,
+  reload `app.backend_adapter`, and verify dynamic E. coli species/drugs plus report
+  translation. Mock AMRFinder execution; do not change adapter or model logic.
+
+## C-009 — Final handoff checklist
+
+- Status: BLOCKED on C-007.
+- Add a short checklist covering: cluster outputs, bundle retrieval, environment variables,
+  real-mode Streamlit launch, test commands, demo smoke test, PR review, and merge.
+- Keep scientific limitations and the mandatory lab-confirmation statement prominent.
